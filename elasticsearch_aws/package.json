@@ -1,0 +1,25 @@
+{
+  "name": "wordpress.elasticsearch",
+  "version": "1.0.0",
+  "description": "ElasticSearch for wordpress",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sputnik Software",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "elasticsearch": "^13.2.0",
+    "express": "^4.15.3",
+    "jsonwebtoken": "^7.4.1",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "nedb": "^1.8.0",
+    "randomstring": "^1.1.5",
+    "remove": "^0.1.5",
+    "request": "^2.81.0",
+    "superagent": "^3.5.2",
+    "superagent-prefix": "0.0.2"
+  }
+}

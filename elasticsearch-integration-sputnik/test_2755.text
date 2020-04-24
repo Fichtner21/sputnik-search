@@ -1,0 +1,37 @@
+Array
+(
+    [res] => {"_index":"luban_1","_type":"post","_id":"2755","_version":1,"result":"created","_shards":{"total":2,"successful":1,"failed":0},"created":true}
+    [info] => Array
+        (
+            [url] => http://35.158.146.123:9005/api/documents/1/doc-id/2755
+            [content_type] => application/json; charset=utf-8
+            [http_code] => 200
+            [header_size] => 389
+            [request_size] => 309
+            [filetime] => -1
+            [ssl_verify_result] => 0
+            [redirect_count] => 0
+            [total_time] => 0.203
+            [namelookup_time] => 1.0E-6
+            [connect_time] => 0.047
+            [pretransfer_time] => 0.047
+            [size_upload] => 1274
+            [size_download] => 143
+            [speed_download] => 143
+            [speed_upload] => 1274
+            [download_content_length] => 143
+            [upload_content_length] => 1274
+            [starttransfer_time] => 0.125
+            [redirect_time] => 0
+            [redirect_url] => 
+            [primary_ip] => 35.158.146.123
+            [certinfo] => Array
+                (
+                )
+
+            [primary_port] => 9005
+            [local_ip] => 192.168.0.103
+            [local_port] => 58534
+        )
+
+)
