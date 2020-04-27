@@ -2,3 +2,4 @@ node_modules
 sql_dump.log
 app_dev.log
 synchronize-dump.log
+elasticsearch_aws
