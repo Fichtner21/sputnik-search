@@ -7,29 +7,47 @@ namespace Inc\Pages;
 use \Inc\Base\BaseController;
 use \Inc\Base\Login;
 use \Inc\Base\CreateIndex;
+use \Inc\Base\DeleteIndex;
 use \Inc\Base\PostsHooks;
 
 class Admin extends BaseController {
+    public $blog_id;
+
     public function register() {
         add_action( 'admin_menu', array( $this, 'add_admin_pages' ) );
         add_action('wp_ajax_index_post_in_es', array( $this, 'index_post_in_es' ) );
         add_action('wp_ajax_index_attachment_in_es', array( $this, 'index_attachment_in_es' ) );
+        $this->blog_id = get_current_blog_id();
     }
 
     public function add_admin_pages() {
         add_menu_page( 'Sputnik Search', 'Sputnik Search', 'manage_options', 'sputnik-search', array( $this, 'admin_index' ), $this->plugin_url . 'assets/admin/sputnik-icon.svg', 1);
+        add_submenu_page('sputnik-search', 'Usuń indeks', 'Usuń indeks', 'read', 'delete-index', 'deleteIndex');
     }
 
     public function admin_index() {
         require_once $this->plugin_path . 'templates/admin.php';
 
-        $blog_id = get_current_blog_id();
         $search_index = new CreateIndex;
-        $search_index->createindex($blog_id);
+        $search_index->createindex($this->blog_id);
+    }
+
+    public function deleteIndex() {
+        $deleteIndex = new DeleteIndex;
+        $deleteIndex->deleteindex($this->blog_id );
     }
     
     public function index_post_in_es() {
-        $posts_arr = get_posts(array('posts_per_page' => 1, 'post_status' => 'publish', 'post_type'=> array('post'), 'offset' => $_POST['id']));
+        $get_post_types = get_post_types(array( 'public' => true ));
+        $post_types = array();
+
+        $indexed_posts = array();
+
+        foreach($get_post_types as $post_type) {
+            array_push($post_types, $post_type);
+        }
+        
+        $posts_arr = get_posts(array('posts_per_page' => 1, 'post_status' => 'publish', 'post_type'=> $post_types, 'offset' => $_POST['id']));
     
         echo print_r($posts_arr, true);
     

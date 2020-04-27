@@ -88,9 +88,9 @@ class CreateIndex extends BaseController {
                                 jQuery("#wp-admin-bar-website-status").removeClass('error');
                                 jQuery("#wp-admin-bar-website-status").removeClass('progress');
                                 jQuery("#wp-admin-bar-website-status").addClass('success');
-                                jQuery("#wp-admin-bar-website-status").find('.ab-item').text("<?php echo $createdIndexText; ?>");
+                                jQuery("#wp-admin-bar-website-status").find('.ab-item').text("<?php echo $this->createdIndexText; ?>");
     
-                                var reload = confirm("<?php echo $createdIndexAskText; ?>");
+                                var reload = confirm("<?php echo $this->createdIndexAskText; ?>");
     
                                 if(reload) {
                                     location.reload();
@@ -99,17 +99,17 @@ class CreateIndex extends BaseController {
                                 jQuery("#wp-admin-bar-website-status").removeClass('error');
                                 jQuery("#wp-admin-bar-website-status").removeClass('success');
                                 jQuery("#wp-admin-bar-website-status").addClass('progress');
-                                jQuery("#wp-admin-bar-website-status").find('.ab-item').text("<?php echo $createIndexText; ?>");
+                                jQuery("#wp-admin-bar-website-status").find('.ab-item').text("<?php echo $this->createIndexText; ?>");
                             } else if(response === "401" && currentStatus != response) {
                                 jQuery("#wp-admin-bar-website-status").removeClass('success');
                                 jQuery("#wp-admin-bar-website-status").removeClass('progress');
                                 jQuery("#wp-admin-bar-website-status").addClass('error');
-                                jQuery("#wp-admin-bar-website-status").find('.ab-item').text("<?php echo $permissionDeniedText; ?>");
+                                jQuery("#wp-admin-bar-website-status").find('.ab-item').text("<?php echo $this->permissionDeniedText; ?>");
                             } else if(currentStatus != response) {
                                 jQuery("#wp-admin-bar-website-status").removeClass('success');
                                 jQuery("#wp-admin-bar-website-status").removeClass('progress');
                                 jQuery("#wp-admin-bar-website-status").addClass('error');
-                                jQuery("#wp-admin-bar-website-status").find('.ab-item').text("<?php echo $connectionErrorText; ?>");
+                                jQuery("#wp-admin-bar-website-status").find('.ab-item').text("<?php echo $this->connectionErrorText; ?>");
                             }
                         });
                     }, 5000);

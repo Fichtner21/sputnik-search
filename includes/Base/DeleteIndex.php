@@ -17,10 +17,10 @@ class DeleteIndex extends BaseController {
         if($login->token) {
             $headers = array("Authorization: $login->token");
     
-            $this->existsResponse = method("GET", "indices/$id", null, $headers);
+            $this->existsResponse = $this->method("GET", "indices/$id", null, $headers);
     
             if($this->existsResponse['info']['http_code'] == 200) {
-                $response = method("DELETE", "indices/$id", null, $headers);
+                $response = $this->method("DELETE", "indices/$id", null, $headers);
             }
         }
     }

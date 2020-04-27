@@ -36,11 +36,11 @@
 
                 jQuery.post(ajaxurl, data, function(response) {
                     $('#es-logs').append("<li style='color: green;'>Dodano wpis " + index + "!</li>");
-
+                    
                     sendPostToES(++index);
                 }).fail(function() {
                     $('#es-logs').append("<li style='color: red;'>Nie dodano wpisu " + index + "!</li>");
-
+      
                     sendPostToES(++index);
                 });
             }

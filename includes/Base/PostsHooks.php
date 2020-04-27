@@ -10,13 +10,18 @@ use \Inc\Base\CreateIndex;
 use \Inc\Base\DeleteIndex;
 
 class PostsHooks extends BaseController {
+    public $response = array();
+    public $blog_id;
+
     public function register() {
-        add_action('save_post', 'synchronize_with_ES');
-        add_action('add_attachment', 'add_attachment_func', 11);
-        add_action('edit_attachment', 'edit_attachment_func', 11);
-        add_action('delete_attachment', 'delete_attachment_func', 11);
-        add_action('delete_blog', 'delete_blog_action', 10, 6);
-        add_action('wpmu_new_blog', 'wporg_wpmu_new_blog_example', 10, 6);
+        add_action('save_post', array( $this, 'synchronize_with_ES' ) );
+        add_action('add_attachment', array( $this, 'add_attachment_func' ), 11);
+        add_action('edit_attachment', array( $this, 'edit_attachment_func' ), 11);
+        add_action('delete_attachment', array( $this, 'delete_attachment_func' ), 11);
+        add_action('delete_blog', array( $this, 'delete_blog_action' ), 10, 6);
+        add_action('wpmu_new_blog', array( $this, 'wporg_wpmu_new_blog_example' ), 10, 6);
+
+        $this->blog_id = get_current_blog_id();
     }
 
     public function synchronize_with_ES($post_id) {
@@ -25,13 +30,8 @@ class PostsHooks extends BaseController {
 
         $post = get_post($post_id);
 
-        $response = array();
-
         if($login->token && $post->post_status != "auto-draft") {
-            $blog_id = get_current_blog_id();
             $headers = array("Authorization: $login->token");
-
-            $response = array();
 
             $categories = array();
             $post_categories = get_the_category($post_id);
@@ -51,47 +51,33 @@ class PostsHooks extends BaseController {
                 "url" => $is_service ? get_post_meta($post_id, 'service_url', true) : get_the_permalink($post_id)
             );
 
-            $existsResponse = $this->method("GET", "documents/$blog_id/doc-id/$post_id/_exists", null, $headers);
+            $existsResponse = $this->method("GET", "documents/$this->blog_id/doc-id/$post_id/_exists", null, $headers);
 
-            $response = $existsResponse;
-            
-            $is_post = $post->post_type == 'post';
-            $is_page = $post->post_type == 'page';
-            $is_komunikaty = $post->post_type == 'komunikaty';
-            $is_galerie = $post->post_type == 'galerie';
-            $is_sesja_rady = $post->post_type == 'sesja_rady';
-            $is_sport_object = $post->post_type == 'sport_object';
-            $is_club = $post->post_type == 'club';
-            $is_sciezki_rowerowe = $post->post_type == 'sciezki_rowerowe';
-            $is_spacer_po_miescie = $post->post_type == 'spacer_po_miescie';
-            $is_culture = $post->post_type == 'culture';
-            $is_przyroda = $post->post_type == 'przyroda';
-            $is_zabytki_i_koscioly = $post->post_type == 'zabytki_i_koscioly';
-            $is_komisje = $post->post_type == 'komisje';
-            $is_radni = $post->post_type == 'radni';
-            $is_adresy = $post->post_type == 'adresy';
-            $is_band = $post->post_type == 'band';
-            $is_uep = $post->post_type == 'uep';
-            $is_pracownicy = $post->post_type == 'pracownicy';
-            $is_event = $post->post_type == 'event';
-            $is_wydarzenia = $post->post_type == 'wydarzenia';
+            $this->response = $existsResponse;
 
-            $is_correct_type = $is_post || $is_page || $is_komunikaty || $is_galerie || $is_sesja_rady || $is_sport_object || $is_club || $is_sciezki_rowerowe || $is_spacer_po_miescie || $is_culture || $is_przyroda || $is_zabytki_i_koscioly || $is_komisje || $is_radni || $is_adresy || $is_band || $is_uep || $is_pracownicy || $is_event || $is_service || $is_wydarzenia;
+            $get_post_types = get_post_types(array( 'public' => true ));
+            $post_types = array();
 
-            if($post->post_status == "publish" && $is_correct_type) {
-                if($existsResponse['info']['http_code'] == 200) {
-                    $response = $this->method("POST", "documents/$blog_id/doc-id/$post_id", $data, $headers);
-                } else if($existsResponse['info']['http_code'] == 404) {
-                    $response = $this->method("PUT", "documents/$blog_id/doc-id/$post_id", $data, $headers);
-                }
-            } else {
-                if($existsResponse['info']['http_code'] == 200) {
-                    $response = $this->method("DELETE", "documents/$blog_id/doc-id/$post_id", null, $headers);
+            foreach($get_post_types as $post_type) {
+                array_push($post_types, $post_type);
+            }
+
+            foreach($post_types as $post_type) {
+                if($post->post_status == "publish" && $post->post_type == $post_type) {
+                    if($existsResponse['info']['http_code'] == 200) {
+                        $this->response = $this->method("POST", "documents/$this->blog_id/doc-id/$post_id", $data, $headers);
+                    } elseif($existsResponse['info']['http_code'] == 404) {
+                        $this->response = $this->method("PUT", "documents/$this->blog_id/doc-id/$post_id", $data, $headers);
+                    }
+                } else {
+                    if($existsResponse['info']['http_code'] == 200) {
+                        $this->response = $this->method("DELETE", "documents/$this->blog_id/doc-id/$post_id", null, $headers);
+                    }
                 }
             }
         }
 
-        return $response;
+        return $this->response;
     }
 
     public function add_attachment_func($file_id) {
@@ -111,7 +97,6 @@ class PostsHooks extends BaseController {
         $response = array();
 
         if($login->token && ($docx || $odt || $pdf || $xlsx || $pptx)) {
-            $blog_id = get_current_blog_id();
             $headers = array("Authorization: $login->token");
 
             $response = array();
@@ -136,7 +121,7 @@ class PostsHooks extends BaseController {
                 "url" => wp_get_attachment_url($file->ID)
             );
             
-            $response = $this->method("PUT", "attachments/$blog_id/doc-id/$file_id", $data, $headers);
+            $response = $this->method("PUT", "attachments/$this->blog_id/doc-id/$file_id", $data, $headers);
 
             if($response['info']['http_code'] == 409 || $response['info']['http_code'] == '409'){
                 $response = edit_attachment_func($file_id);
@@ -163,7 +148,6 @@ class PostsHooks extends BaseController {
         $response = array();
 
         if($login->token && ($docx || $odt || $pdf || $xlsx || $pptx)) {
-            $blog_id = get_current_blog_id();
             $headers = array("Authorization: $login->token");
 
             $response = array();
@@ -187,7 +171,7 @@ class PostsHooks extends BaseController {
                 "url" => wp_get_attachment_url($file->ID)
             );
             
-            $response = $this->method("POST", "attachments/$blog_id/doc-id/$file_id", $data, $headers);
+            $response = $this->method("POST", "attachments/$this->blog_id/doc-id/$file_id", $data, $headers);
         }
 
         return $response;
@@ -197,21 +181,19 @@ class PostsHooks extends BaseController {
         $login = new Login;
         $login->register();
 
-        $blog_id = get_current_blog_id();
-
         if($login->token) {
             $headers = array("Authorization: $login->token");
-            $response = $this->method("DELETE", "attachments/$blog_id/doc-id/$file_id", null, $headers);
+            $response = $this->method("DELETE", "attachments/$this->blog_id/doc-id/$file_id", null, $headers);
         }
     }
 
     public function wporg_wpmu_new_blog_example($blog_id, $user_id, $domain, $path, $site_id, $meta) {
         $create_index = new CreateIndex;
-        $create_index->createindex($blog_id);
+        $create_index->createindex($this->blog_id);
     }
 
     public function delete_blog_action($blog_id, $drop) {
         $delete_index = new DeleteIndex;
-        $delete_index->deleteindex($blog_id);
+        $delete_index->deleteindex($this->blog_id);
     }
 }

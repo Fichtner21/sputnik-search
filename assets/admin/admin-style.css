@@ -69,3 +69,17 @@
   background: red;
   color: white;
 }
+
+#es-logs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  align-items: center;
+  max-height: 350px;
+  overflow: auto;
+}
+
+#es-logs li {
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  margin: 0 !important;
+}
