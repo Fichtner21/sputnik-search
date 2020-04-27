@@ -1,0 +1,71 @@
+.sputnik-search-page__inner {
+  background-color: white;
+  box-shadow: 6px 6px 18px -6px rgba(0, 0, 0, 0.08);
+}
+
+.sputnik-search-page__branding {
+  background-color: #58b749;
+  padding: 25px;
+}
+
+.sputnik-search-page__content {
+  padding: 25px;
+}
+
+.sputnik-search-page h1 {
+  font-size: 36px;
+  color: black;
+}
+.sputnik-search-page__text {
+  font-size: 24px;
+  color: black;
+  opacity: 0.5;
+  margin-top: 10px;
+}
+
+.sputnik-action-buttons {
+  margin: 15px 0;
+}
+
+.sputnik-action-buttons .btn {
+  margin: 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: black;
+  cursor: pointer;
+}
+
+.btn--medium {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 40px;
+}
+
+.btn--primary {
+  background: #58b749;
+  color: white;
+}
+
+.btn--primary:hover {
+  background: #319737;
+}
+
+.btn--outline {
+  border: 1px solid #58b749;
+}
+
+#wpadminbar .website-status.success a.ab-item {
+  background: #58b749;
+  color: white;
+}
+
+#wpadminbar .website-status.error a.ab-item {
+  background: red;
+  color: white;
+}

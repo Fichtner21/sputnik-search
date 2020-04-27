@@ -1,0 +1,15 @@
+{
+  "name": "przeman/interakcjo",
+  "description": "Sputnik Search plugin",
+  "authors": [
+    {
+      "name": "Sputnik"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Inc\\": "./includes"
+    }
+  }
+}

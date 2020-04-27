@@ -1,0 +1,31 @@
+{
+	"name": "Declaration",
+	"version": "2.1",
+	"download_url": "http://wptest.nowoczesnyurzad.pl/info.json",
+
+	"homepage": "http://wptest.nowoczesnyurzad.pl/",
+	"requires": "3.0",
+	"tested": "5.4",
+	"last_updated": "20202-04-02 12:00:00",
+	"upgrade_notice": "Here's why you should upgrade...",
+
+	"author": "Przemysław Drożniak & Ernest Fichtner",
+	"author_homepage": "http://wptest.nowoczesnyurzad.pl/",
+
+	"sections": {
+		"description": "(Required) Plugin description. Basic HTML can be used in all sections.",
+		"installation": "(Recommended) Installation instructions.",
+		"changelog": "(Recommended) Changelog. <p>This section will be displayed by default when the user clicks 'View version x.y.z details'.</p>",
+		"custom_section": "This is a custom section labeled 'Custom Section'."
+	},
+
+	"icons": {
+		"1x": "https://source.unsplash.com/random/128x128",
+		"2x": "https://source.unsplash.com/random/256x256"
+	},
+
+	"banners": {
+		"low": "https://source.unsplash.com/random/772x250",
+		"high": "https://source.unsplash.com/random/1544x500"
+	}
+}

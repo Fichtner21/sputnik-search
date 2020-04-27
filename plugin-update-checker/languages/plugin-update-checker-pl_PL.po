@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: plugin-update-checker\n"
+"POT-Creation-Date: 2017-11-24 17:02+0200\n"
+"PO-Revision-Date: 2020-04-02 11:24+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_x\n"
+"Last-Translator: \n"
+"Language: pl_PL\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: Puc/v4p3/Plugin/UpdateChecker.php:395
+msgid "Check for updates"
+msgstr "Sprawdź aktualizacje"
+
+#: Puc/v4p3/Plugin/UpdateChecker.php:548
+#, php-format
+msgctxt "the plugin title"
+msgid "The %s plugin is up to date."
+msgstr "Wtyczka %s jest aktualna."
+
+#: Puc/v4p3/Plugin/UpdateChecker.php:550
+#, php-format
+msgctxt "the plugin title"
+msgid "A new version of the %s plugin is available."
+msgstr "Nowa wersja wtyczki %s jest dostępna."
+
+#: Puc/v4p3/Plugin/UpdateChecker.php:552
+#, php-format
+msgctxt "the plugin title"
+msgid "Could not determine if updates are available for %s."
+msgstr "Nie można ustalić czy aktualizacja jest dostępna %s."
+
+#: Puc/v4p3/Plugin/UpdateChecker.php:558
+#, php-format
+msgid "Unknown update checker status \"%s\""
+msgstr "Nieznany status modułu sprawdzania aktualizacji „% s”"
+
+#: Puc/v4p3/Vcs/PluginUpdateChecker.php:95
+msgid "There is no changelog available."
+msgstr "Dziennik zmian nie jest dostępny."
