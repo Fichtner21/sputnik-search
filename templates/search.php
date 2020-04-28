@@ -14,7 +14,8 @@ $count = $sputnikSearch->get_count();
 // Search posts template
 if(!function_exists('search_posts_template')) {
     function search_posts_template($post_var) {
-		$post_tags = get_the_tags($post_var['ID']);
+        $post_tags = get_the_tags($post_var['ID']);
+		$terms = get_the_terms( $post_var['ID'] , 'wydarzenia-category' );
 		
 		$post_title = preg_replace("/(\p{L}*?)(". preg_quote($_GET['sq']) .")(\p{L}*)/ui", "$1<span class=\"h\"><mark>$2</mark></span>$3", $post_var['post_title']);
 
@@ -22,10 +23,22 @@ if(!function_exists('search_posts_template')) {
         $output = '<a href="'. get_the_permalink($post_var['ID']) .'">';
         $output .= '<article>';
 
-        $output .= has_post_thumbnail($post_var['ID']) ? '<div class="thumbnail"><img src="'. get_the_post_thumbnail_url($post_var['ID'], "medium") .'" alt=""></div>' : false;
+        $output .= has_post_thumbnail($post_var['ID']) ? '<div class="thumbnail"><img src="'. get_the_post_thumbnail_url($post_var['ID'], "medium") .'" alt=""></div>'    : '<img src="' . esc_url(get_template_directory_uri()).'/images/luban_mock_logo.png" title="Gmina Lubań"/>';    
+
         $output .= '<div class="center">';
         $output .= '<h5>'. $post_title .'</h5>';
         $output .= '<div class="content">'. $post_var['post_content'] .'</div>';
+
+        if ( is_array( $terms ) && ! is_wp_error( $terms ) ) {
+            foreach ($terms as $term) {
+                $term_link = get_term_link($term, 'wydarzenia-category');
+                if (is_wp_error($term_link))
+                    continue;
+                $output .= '<span>Kategoria: </span><a href="' . $term_link . '">' . $term->name . '</a> ';
+            }
+        } else {
+            $output .= '';
+        }
         
         if($post_tags) {
             $output .= '<div class="tags"><span>'. __('TAGI', 'main') .'</span>';
@@ -36,6 +49,7 @@ if(!function_exists('search_posts_template')) {
 
             $output .= '</div>';
         }
+
 
         $output .= '<div class="left">';
         $output .= '<div class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>'. __('Data dodania', 'main');
@@ -59,6 +73,9 @@ get_header(); ?>
 			<div class="archive-section">	
 				<div class="archive-list search-list">
 					<?php
+					// echo '<pre>';
+					// var_dump($posts);
+					// echo '</pre>';
 
 						if( isset( $_GET['d_from'] ) ) {
 							$date_from = $_GET['d_from'];

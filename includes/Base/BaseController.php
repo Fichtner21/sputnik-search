@@ -11,8 +11,11 @@ class BaseController {
 
     public $ESUserName;
     public $ESPassword;
-
+    
+    public $apiURL;
     public $token;
+
+    public $blog_id;
 
     public function __construct() {
         $this->plugin_path = plugin_dir_path( dirname( __FILE__, 2 ) );
@@ -24,6 +27,8 @@ class BaseController {
 
         $this->apiURL = 'http://35.158.146.123:9005/api/';
         $this->token = '';
+
+        $this->blog_id = get_current_blog_id();
     }
 
     public function method($type, $url, $data, $additionalsHeaders = array()) {
@@ -48,7 +53,7 @@ class BaseController {
         $info = curl_getinfo($curl);
     
         if (!$response) {
-            file_put_contents($this->plugin_path . '/add_file_response2_', print_r(array("res" => $response, "info" => $info), true));
+            file_put_contents($this->plugin_path . '/add_file_response_', print_r(array("res" => $response, "info" => $info), true));
             die("Connection Failure.n");
         }
     

@@ -58,6 +58,18 @@
 
 .btn--outline {
   border: 1px solid #58b749;
+  color: #58b749;
+}
+
+.btn--danger {
+  flex-direction: column;
+  border: 1px solid red;
+  color: red;
+}
+
+.btn--danger small {
+  display: block;
+  font-size: 10px;
 }
 
 #wpadminbar .website-status.success a.ab-item {

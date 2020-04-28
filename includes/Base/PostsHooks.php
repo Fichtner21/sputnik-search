@@ -11,7 +11,6 @@ use \Inc\Base\DeleteIndex;
 
 class PostsHooks extends BaseController {
     public $response = array();
-    public $blog_id;
 
     public function register() {
         add_action('save_post', array( $this, 'synchronize_with_ES' ) );
@@ -20,8 +19,6 @@ class PostsHooks extends BaseController {
         add_action('delete_attachment', array( $this, 'delete_attachment_func' ), 11);
         add_action('delete_blog', array( $this, 'delete_blog_action' ), 10, 6);
         add_action('wpmu_new_blog', array( $this, 'wporg_wpmu_new_blog_example' ), 10, 6);
-
-        $this->blog_id = get_current_blog_id();
     }
 
     public function synchronize_with_ES($post_id) {
@@ -54,6 +51,8 @@ class PostsHooks extends BaseController {
             $existsResponse = $this->method("GET", "documents/$this->blog_id/doc-id/$post_id/_exists", null, $headers);
 
             $this->response = $existsResponse;
+
+            _log($this->response);
 
             $get_post_types = get_post_types(array( 'public' => true ));
             $post_types = array();

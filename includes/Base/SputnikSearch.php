@@ -4,7 +4,9 @@
 */
 namespace Inc\Base;
 
-class SputnikSearch {
+use \Inc\Base\BaseController;
+
+class SputnikSearch extends BaseController {
 	protected $search_query;
 	protected $paged;
 	protected $number_of_posts;

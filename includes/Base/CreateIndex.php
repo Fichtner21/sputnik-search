@@ -32,8 +32,6 @@ class CreateIndex extends BaseController {
             
             if($this->existsResponse['info']['http_code'] == 404) {
                 $response = $this->method("PUT", "indices/$id", null, $headers);
-    
-                print_r($response);
                 
                 $output = '<div style="color: orange; margin: 20px; font-size: 20px;"><span class="dashicons dashicons-clock"></span> Wysłano request o dodanie indeksu.</div>';
 
@@ -53,12 +51,10 @@ class CreateIndex extends BaseController {
     public function check_if_index_exists() {
         $login = new Login;
         $login->register();
-
-        $blog_id = get_current_blog_id();
     
         $headers = array("Authorization: $login->token");
     
-        $this->existsResponse = $this->method("GET", "indices/$blog_id", null, $headers);
+        $this->existsResponse = $this->method("GET", "indices/$this->blog_id", null, $headers);
     
         echo $this->existsResponse['info']['http_code'];
     
@@ -179,11 +175,9 @@ class CreateIndex extends BaseController {
             $login = new Login;
             $login->register();
 
-            $blog_id = get_current_blog_id();
-    
             $headers = array("Authorization: $login->token");
     
-            $this->existsResponse = $this->method("GET", "indices/$blog_id", null, $headers);
+            $this->existsResponse = $this->method("GET", "indices/$this->blog_id", null, $headers);
     
             add_action('admin_footer', array($this, 'my_action_javascript' ) );
     
