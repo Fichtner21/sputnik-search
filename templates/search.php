@@ -73,9 +73,6 @@ get_header(); ?>
 			<div class="archive-section">	
 				<div class="archive-list search-list">
 					<?php
-					// echo '<pre>';
-					// var_dump($posts);
-					// echo '</pre>';
 
 						if( isset( $_GET['d_from'] ) ) {
 							$date_from = $_GET['d_from'];
@@ -118,7 +115,7 @@ get_header(); ?>
 							}
 						} ?>
 					</div>
-				<?php require_once(__DIR__ . '/pagination-news.php'); ?>
+				<?php require_once(__DIR__ . '/search-pagination.php'); ?>
 			</div>
 		</div>
 	</div>
