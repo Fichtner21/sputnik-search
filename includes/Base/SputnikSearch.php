@@ -16,11 +16,11 @@ class SputnikSearch extends BaseController {
 
 	private $all_words;
 
-	public function __construct($post_types=array(), $search_query='', $paged=0, $number_of_posts=10) {
-		$this->search_query = $search_query ? $search_query : $_GET['sq'];
-		$this->paged = $paged ? $paged : 0;
-		$this->number_of_posts = $number_of_posts ? $number_of_posts : 10;
-		$this->post_types = $post_types ? $post_types : array('post', 'page');
+	public function __construct($post_types=array('post', 'page'), $search_query='', $paged=0, $number_of_posts=10) {
+		$this->search_query = $search_query;
+		$this->paged = $paged;
+		$this->number_of_posts = $number_of_posts;
+		$this->post_types = $post_types;
 	}
 
 	public function get_search_query() {
@@ -76,13 +76,13 @@ class SputnikSearch extends BaseController {
 				$one_post['ID'] = $hit->_id;
 				$one_post['post_type'] = get_post_type($hit->_id);
 				$one_post['post_title'] = $hit->_source->title;
-				$conentSeearch = 'content.search';	
+				$contentSearch = 'content.search';	
 				$contentTitle = 'content.title';			
 				$one_post['post_content'] = '';
 				
-				if($hit->highlight && $hit->highlight->$conentSeearch) {
+				if($hit->highlight && $hit->highlight->$contentSearch) {
 					$first = true;
-					foreach($hit->highlight->$conentSeearch as $line) {						
+					foreach($hit->highlight->$contentSearch as $line) {						
 						if($first) {
 							$first = false;
 							$one_post['post_content'] .= $line;

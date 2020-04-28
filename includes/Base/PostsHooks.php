@@ -52,8 +52,6 @@ class PostsHooks extends BaseController {
 
             $this->response = $existsResponse;
 
-            _log($this->response);
-
             $get_post_types = get_post_types(array( 'public' => true ));
             $post_types = array();
 

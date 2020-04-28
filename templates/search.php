@@ -5,6 +5,15 @@
 
 use \Inc\Base\SputnikSearch;
 
+$get_post_types = get_post_types(array( 'public' => true ));
+$post_types = array();
+
+foreach($get_post_types as $post_type) {
+	array_push($post_types, $post_type);
+}
+
+$posts_per_page = 1000;
+
 $sputnikSearch = new SputnikSearch($post_types, $_GET['sq'], $paged, $posts_per_page);
 
 $posts = $sputnikSearch->get_results();
@@ -73,7 +82,6 @@ get_header(); ?>
 			<div class="archive-section">	
 				<div class="archive-list search-list">
 					<?php
-
 						if( isset( $_GET['d_from'] ) ) {
 							$date_from = $_GET['d_from'];
 							$date_from_format = date('d-m-Y', strtotime($date_from));
@@ -115,7 +123,7 @@ get_header(); ?>
 							}
 						} ?>
 					</div>
-				<?php require_once(__DIR__ . '/search-pagination.php'); ?>
+				<?php // require_once(__DIR__ . '/search-pagination.php'); ?>
 			</div>
 		</div>
 	</div>
