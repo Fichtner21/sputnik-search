@@ -17,6 +17,8 @@ class SputnikSearch extends BaseController {
 	private $all_words;
 
 	public function __construct($post_types=array('post', 'page'), $search_query='', $paged=0, $number_of_posts=10) {
+		parent::__construct();
+
 		$this->search_query = $search_query;
 		$this->paged = $paged;
 		$this->number_of_posts = $number_of_posts;
@@ -61,13 +63,8 @@ class SputnikSearch extends BaseController {
 		$posts_per_page = $this->number_of_posts;
 		$from = $this->paged * $posts_per_page;
 		$q = urlencode($this->search_query);
-		$cur_blog_id = get_current_blog_id();
 
-		$url = "http://35.158.146.123:9005/api/search/przemekd/$cur_blog_id?q=$q&from=$from&size=$posts_per_page&mode=&cs=&category=&d_from=&d_to=&sort=&no_attachments";
-
-		echo '<pre>';
-		var_dump($this->apiURL);
-		echo '</pre>';
+		$url = $this->apiURL . "search/$this->ESUserName/$this->blog_id?q=$q&from=$from&size=$posts_per_page&mode=&cs=&category=&d_from=&d_to=&sort=&no_attachments";
 		
 		$results = json_decode(file_get_contents($url));
 
