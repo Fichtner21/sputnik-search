@@ -1,3 +1,17 @@
+<?php 
+
+if (!empty($_POST)) {
+    if(isset($_POST['es-username']) || isset($_POST['es-password'])){
+        update_option( 'es_username', $_POST['es-username']);
+        update_option( 'es_password', $_POST['es-password']);
+    }
+}
+
+$es_username = get_option('es_username');
+$es_password = get_option('es_password');
+
+?>
+
 <div class="wrap sputnik-search-page">
     <div class="sputnik-search-page__inner">
         <div class="sputnik-search-page__branding">
@@ -6,7 +20,22 @@
 
         <div class="sputnik-search-page__content">
             <h1 class="sputnik-search-page__title">Sputnik Search</h1>
-            <p class="sputnik-search-page__text">Advanced search on website using ElasticSearch</p>
+            <p class="sputnik-search-page__text">Zaawansowana wyszukiwarka stworzona przy użyciu ElasticSearch</p>
+
+            <form method="POST" class="sputnik-search-form">
+                <h2 class="sputnik-search-form__title">Wypełnij pola, aby można było nawiązać połączenie</h2>
+                <div class="sputnik-search-form__row">
+                    <label for="es-username" class="sputnik-search-form__label">ESUserName:</label>
+                    <input type="text" id="es-username" name="es-username" class="sputnik-search-form__input" value="<?= $es_username ? $es_username : false; ?>">
+                </div>
+                <div class="sputnik-search-form__row">
+                    <label for="es-password" class="sputnik-search-form__label">ESPassword</label>
+                    <input type="text" id="es-password" name="es-password" class="sputnik-search-form__input" value="<?= $es_password ? $es_password : false; ?>">
+                </div>
+                <div class="sputnik-search-form__row">
+                    <button type="submit" class="btn btn--medium btn--primary sputnik-search-form__submit" title="Zapisz dane">Zapisz dane</button>
+                </div>
+            </form>
 
             <div class="sputnik-action-buttons">
                 <button class="btn btn--medium btn--primary sputnik-action-buttons__button" title="Synchronizuj Wpisy" id="js-synchronize">Synchronizuj Wpisy</button>
@@ -39,9 +68,18 @@
                 jQuery.post(ajaxurl, data, function(response) {
                     $('#es-logs').append("<li style='color: green;'>Dodano wpis " + index + "!</li>");
 
-                    // indexed_posts.push(response);  Make array and filter last null array
+                    if(response != 'nothing') {
+                        sendPostToES(++index);
+                    } else {
+                        const $reloadButton = $('<button/>', {
+                            text: 'Odśwież stronę',
+                            class: 'btn btn--medium btn--primary',
+                            click: function() { window.location.reload() }
+                        });
 
-                    sendPostToES(++index);
+                        $('#es-logs').addClass('synchronize-complete').after($reloadButton).after('<p>Wszystkie wpisy zostały zsynchronizowane.</p>');
+                        return
+                    }
                 }).fail(function() {
                     $('#es-logs').append("<li style='color: red;'>Nie dodano wpisu " + index + "!</li>");
       
@@ -64,10 +102,11 @@
 
                 jQuery.post(ajaxurl, data, function(response) {
                     $('#es-logs').append("<li style='color: green;'>Dodano załącznik " + index + "!</li>");
-
+                    console.log(response)
                     sendFilesToEs(++index);
                 }).fail(function() {
                     $('#es-logs').append("<li style='color: red;'>Nie dodano załącznika " + index + "!</li>");
+                    console.log(response)
 
                     sendFilesToEs(++index);
                 });

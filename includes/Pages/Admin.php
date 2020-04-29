@@ -48,7 +48,11 @@ class Admin extends BaseController {
         
         $posts_arr = get_posts(array('posts_per_page' => 1, 'post_status' => 'publish', 'post_type'=> $post_types, 'offset' => $_POST['id']));
     
-        echo print_r($posts_arr, true);
+        if(!empty($posts_arr)) {
+            echo print_r($posts_arr, true);
+        } else {
+            echo 'nothing';
+        }
     
         if(count($posts_arr) > 0) {
             $login = new Login;

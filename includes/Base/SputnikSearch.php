@@ -63,7 +63,11 @@ class SputnikSearch extends BaseController {
 		$q = urlencode($this->search_query);
 		$cur_blog_id = get_current_blog_id();
 
-		$url = "http://35.158.146.123:9005/api/search/luban/$cur_blog_id?q=$q&from=$from&size=$posts_per_page&mode=&cs=&category=&d_from=&d_to=&sort=&no_attachments";
+		$url = "http://35.158.146.123:9005/api/search/przemekd/$cur_blog_id?q=$q&from=$from&size=$posts_per_page&mode=&cs=&category=&d_from=&d_to=&sort=&no_attachments";
+
+		echo '<pre>';
+		var_dump($this->apiURL);
+		echo '</pre>';
 		
 		$results = json_decode(file_get_contents($url));
 

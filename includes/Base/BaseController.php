@@ -22,8 +22,8 @@ class BaseController {
         $this->plugin_url = plugin_dir_url( dirname( __FILE__, 2 ) );
         $this->plugin_name = plugin_basename( dirname( __FILE__, 3 ) . '/sputnik-search.php' );
 
-        $this->ESUserName = 'luban';
-        $this->ESPassword = '487d372373feb6326cd56e02ea218b7b068b924c48f7012cc172ab05ef4dcbd43623282a4b2110403e4836a8c44211639b7bac73f2ce3209ac46274e8051d7a2';
+        $this->ESUserName = get_option('es_username');
+        $this->ESPassword = get_option('es_password');
 
         $this->apiURL = 'http://35.158.146.123:9005/api/';
         $this->token = '';
