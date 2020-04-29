@@ -51,7 +51,6 @@ $es_password = get_option('es_password');
 <script type="text/javascript">
     (function($) {
         $(document).ready(function($) {
-            const indexed_posts = [];
             // Synchronize index
             $('#js-synchronize').click(function(){
                 var index = 0;
@@ -134,4 +133,4 @@ $es_password = get_option('es_password');
             }
         });
     })(jQuery);
-</script> 
+</script>

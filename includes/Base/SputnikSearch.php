@@ -13,6 +13,7 @@ class SputnikSearch extends BaseController {
 	protected $post_types;
 	protected $count;
 	protected $posts;
+	protected $all_posts;
 
 	private $all_words;
 
@@ -22,6 +23,14 @@ class SputnikSearch extends BaseController {
 		$this->search_query = $search_query;
 		$this->paged = $paged;
 		$this->number_of_posts = $number_of_posts;
+
+		$get_post_types = get_post_types(array( 'public' => true ));
+		$post_types = array();
+
+		foreach($get_post_types as $post_type) {
+			array_push($post_types, $post_type);
+		}
+		
 		$this->post_types = $post_types;
 	}
 

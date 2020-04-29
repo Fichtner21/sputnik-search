@@ -5,15 +5,6 @@
 
 use \Inc\Base\SputnikSearch;
 
-$get_post_types = get_post_types(array( 'public' => true ));
-$post_types = array();
-
-foreach($get_post_types as $post_type) {
-	array_push($post_types, $post_type);
-}
-
-$posts_per_page = 1000;
-
 $sputnikSearch = new SputnikSearch($post_types, $_GET['sq'], $paged, $posts_per_page);
 
 $posts = $sputnikSearch->get_results();
@@ -81,49 +72,50 @@ get_header(); ?>
 			</div>
 			<div class="archive-section">	
 				<div class="archive-list search-list">
-					<?php
-						if( isset( $_GET['d_from'] ) ) {
-							$date_from = $_GET['d_from'];
-							$date_from_format = date('d-m-Y', strtotime($date_from));
-							$date_from_value = intval(strtotime($date_from_format));
-						}
+				<?php
+					if( isset( $_GET['d_from'] ) ) {
+						$date_from = $_GET['d_from'];
+						$date_from_format = date('d-m-Y', strtotime($date_from));
+						$date_from_value = intval(strtotime($date_from_format));
+					}
 
-						if( isset( $_GET['d_to'] ) ) {
-							$date_to = $_GET['d_to'];
-							$date_to_format = date('d-m-Y', strtotime($date_to));
-							$date_to_value = intval(strtotime($date_to_format));
-						}
-						
-						?>
-						<?php 
-						if($count > 0) {
-							foreach($posts as $found_post) {
-								$post_date = get_the_date('d-m-Y', $found_post['ID']); 
-								$post_date_value = intval(strtotime($post_date));
+					if( isset( $_GET['d_to'] ) ) {
+						$date_to = $_GET['d_to'];
+						$date_to_format = date('d-m-Y', strtotime($date_to));
+						$date_to_value = intval(strtotime($date_to_format));
+					}
+					
+					?>
+					<?php 
+					if($count > 0) {
+						foreach($posts as $found_post) {
+							$post_date = get_the_date('d-m-Y', $found_post['ID']); 
+							$post_date_value = intval(strtotime($post_date));
 
-								if(
-									isset($_GET['sq']) &&
-									( isset($_GET['d_from']) && $_GET['d_from'] != null ) &&
-									( isset($_GET['d_to']) && $_GET['d_to'] != null )
-								) {
-									if( $post_date_value >= $date_from_value && $post_date_value <= $date_to_value ) {
-										echo search_posts_template($found_post);
-									}
-								} elseif( isset($_GET['sq']) && ( isset($_GET['d_from']) && $_GET['d_from'] != null ) ) {
-									if( $post_date_value >= $date_from_value ) {
-										echo search_posts_template($found_post);
-									}
-								} elseif( isset($_GET['sq']) && ( isset($_GET['d_to']) && $_GET['d_to'] != null ) ) {
-									if( $post_date_value <= $date_to_value ) {
-										echo search_posts_template($found_post);
-									}
-								} else {
+							if(
+								isset($_GET['sq']) &&
+								( isset($_GET['d_from']) && $_GET['d_from'] != null ) &&
+								( isset($_GET['d_to']) && $_GET['d_to'] != null )
+							) {
+								if( $post_date_value >= $date_from_value && $post_date_value <= $date_to_value ) {
 									echo search_posts_template($found_post);
 								}
+							} elseif( isset($_GET['sq']) && ( isset($_GET['d_from']) && $_GET['d_from'] != null ) ) {
+								if( $post_date_value >= $date_from_value ) {
+									echo search_posts_template($found_post);
+								}
+							} elseif( isset($_GET['sq']) && ( isset($_GET['d_to']) && $_GET['d_to'] != null ) ) {
+								if( $post_date_value <= $date_to_value ) {
+									echo search_posts_template($found_post);
+								}
+							} else {
+								echo search_posts_template($found_post);
 							}
-						} ?>
-					</div>
-				<?php // require_once(__DIR__ . '/search-pagination.php'); ?>
+						}
+					} ?>
+				</div>
+				<!-- Search pagination -->
+				<?php require_once(__DIR__ . '/search-pagination.php'); ?>
 			</div>
 		</div>
 	</div>
