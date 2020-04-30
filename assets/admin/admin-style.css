@@ -162,3 +162,16 @@
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0;
 }
+
+.sputnik-search-form__radio-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.sputnik-search-form__radio-buttons label {
+  margin-right: 7px;
+}
+
+.sputnik-search-form__radio-buttons input {
+  margin-right: 15px;
+}

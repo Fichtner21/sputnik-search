@@ -30,8 +30,6 @@ class Admin extends BaseController {
     }
 
     public function deleteIndex() {
-        require_once $this->plugin_path . 'templates/deleteindex.php';
-
         $deleteIndex = new DeleteIndex;
         $deleteIndex->deleteindex( $this->blog_id );
     }

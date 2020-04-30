@@ -5,10 +5,16 @@ if (!empty($_POST)) {
         update_option( 'es_username', $_POST['es-username']);
         update_option( 'es_password', $_POST['es-password']);
     }
+
+    if(isset($_POST['display-version'])) {
+        update_option( 'display_version', $_POST['display-version'] );
+    }
 }
 
 $es_username = get_option('es_username');
 $es_password = get_option('es_password');
+
+$displayVersion = get_option('display_version');
 
 ?>
 
@@ -31,6 +37,15 @@ $es_password = get_option('es_password');
                 <div class="sputnik-search-form__row">
                     <label for="es-password" class="sputnik-search-form__label">ESPassword</label>
                     <input type="text" id="es-password" name="es-password" class="sputnik-search-form__input" value="<?= $es_password ? $es_password : false; ?>">
+                </div>
+                <div class="sputnik-search-form__row">
+                    <h3 class="sputnik-search-form__choose-title">Wybierz opcje wyświetlania:</h3>
+                    <div class="sputnik-search-form__radio-buttons">
+                        <label for="react" class="sputnik-search-form__label">React:</label>
+                        <input type="radio" id="react" name="display-version" class="sputnik-search-form__radio" value="react" <?= $displayVersion == 'react' ? 'checked' : false; ?>>
+                        <label for="php" class="sputnik-search-form__label">PHP:</label>
+                        <input type="radio" id="php" name="display-version" class="sputnik-search-form__radio" value="php" <?= $displayVersion == 'php' ? 'checked' : false; ?>>
+                    </div>
                 </div>
                 <div class="sputnik-search-form__row">
                     <button type="submit" class="btn btn--medium btn--primary sputnik-search-form__submit" title="Zapisz dane">Zapisz dane</button>
