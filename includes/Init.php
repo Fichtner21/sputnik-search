@@ -20,6 +20,7 @@ final class Init
 			Base\CreateIndex::class,
 			Base\PostsHooks::class,
 			// Last / displaying
+			Base\SearchForm::class,
 			Base\SputnikSearch::class,
 		];
 	}
