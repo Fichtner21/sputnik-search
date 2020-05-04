@@ -175,3 +175,9 @@
 .sputnik-search-form__radio-buttons input {
   margin-right: 15px;
 }
+
+.suggest-text {
+  display: inline-block;
+  font-weight: bold;
+  text-decoration: underline;
+}
