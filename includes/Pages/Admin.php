@@ -38,8 +38,6 @@ class Admin extends BaseController {
         $get_post_types = get_post_types(array( 'public' => true ));
         $post_types = array();
 
-        $indexed_posts = array();
-
         foreach($get_post_types as $post_type) {
             array_push($post_types, $post_type);
         }
