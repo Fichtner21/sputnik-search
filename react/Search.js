@@ -446,86 +446,90 @@ export class Search extends Component {
         {_.map(results, (result, i) => {
           const { fields, type, highlight } = result;
           const { attachment } = fields;
-
+          
           return (
-            <article className="article" key={i}>
-              <div>
-                {type !== "attachments" && (
-                  <figure style={{ overflow: "hidden" }}>
-                    {fields.thumbnail && (
-                      <Img
-                        width={thumbnail.width}
-                        height={thumbnail.height}
-                        src={fields.thumbnail}
-                        className="attachment-post-thumbnail size-post-thumbnail wp-post-image"
-                        alt={fields.title}
-                      />
-                    )}
-                  </figure>
-                )}
-                <div>
-                  <header>
-                    <h4>
-                      {type === "attachments" ? (
-                        <span>
-                          <sup>
-                            [{this.getFileType(attachment.content_type)}]
-                          </sup>{" "}
-                          {fields.title}
-                        </span>
-                      ) : (
-                        fields.title
-                      )}
-                    </h4>
-                  </header>
-                  <div className="info">
-                    <div>
-                      <span>{fields.date}</span>
+            <a href={fields.url}>
+              <article className="article" key={i}>
+                {/* <div> */}                
+                  {type !== "attachments" && (
+                    <div className="thumbnail">                     
+                      <figure style={{ overflow: "hidden" }}>
+                        {fields.thumbnail && (
+                          <Img
+                            width={thumbnail.width}
+                            height={thumbnail.height}
+                            src={fields.thumbnail}
+                            className="attachment-post-thumbnail size-post-thumbnail wp-post-image"
+                            alt={fields.title}
+                          />                      
+                        )}                                                                   
+                      </figure>                     
                     </div>
-                    <div className="social-buttons">
-                      <a
-                        href={`https://www.facebook.com/sharer/sharer.php?u=${fields.url}title=${fields.title}”`}
-                        onClick={this.socialClick.bind(this)}
-                        className="fb"
-                      >
-                        <em className="fa fa-facebook" aria-hidden="true"></em>
-                      </a>
-                      <a
-                        href={`https://plus.google.com/share?url=${fields.url}`}
-                        onClick={this.socialClick.bind(this)}
-                        class="g"
-                      >
-                        <em
-                          className="fa fa-google-plus"
-                          aria-hidden="true"
-                        ></em>
-                      </a>
+                  )}                
+                  <div className="center">
+                    <header>
+                      <h4>
+                        {type === "attachments" ? (
+                          <span>
+                            <sup>
+                              [{this.getFileType(attachment.content_type)}]
+                            </sup>{" "}
+                            {fields.title}
+                          </span>
+                        ) : (
+                          fields.title
+                        )}
+                      </h4>
+                    </header>
+                    <div className="info">
+                      <div>
+                        <span>{fields.date}</span>
+                      </div>
+                      <div className="social-buttons">
+                        <a
+                          href={`https://www.facebook.com/sharer/sharer.php?u=${fields.url}title=${fields.title}”`}
+                          onClick={this.socialClick.bind(this)}
+                          className="fb"
+                        >
+                          <em className="fa fa-facebook" aria-hidden="true"></em>
+                        </a>
+                        {/* <a
+                          href={`https://plus.google.com/share?url=${fields.url}`}
+                          onClick={this.socialClick.bind(this)}
+                          class="g"
+                        >
+                          <em
+                            className="fa fa-google-plus"
+                            aria-hidden="true"
+                          ></em>
+                        </a> */}
+                      </div>
                     </div>
-                  </div>
-                  <div className="content-post-on-list">
-                    {_.map(highlight, (mark, index) => {
-                      const threeDots =
-                        ' <span style="padding=0 5px;">...</span> ';
-                      const text = `...${mark}${
-                        index === highlight.length - 1 ? threeDots : ""
-                      }`;
+                    <div className="content-post-on-list">
+                      {_.map(highlight, (mark, index) => {
+                        const threeDots =
+                          ' <span style="padding=0 5px;">...</span> ';
+                        const text = `...${mark}${
+                          index === highlight.length - 1 ? threeDots : ""
+                        }`;
 
-                      return (
-                        <span
-                          key={index}
-                          dangerouslySetInnerHTML={{ __html: text }}
-                        />
-                      );
-                    })}
+                        return (
+                          <span
+                            key={index}
+                            dangerouslySetInnerHTML={{ __html: text }}
+                          />
+                        );
+                      })}
+                    </div>
+                    <footer>
+                      <a href={fields.url} className="more">
+                        Czytaj więcej
+                      </a>
+                    </footer>
                   </div>
-                  <footer>
-                    <a href={fields.url} className="more">
-                      Czytaj więcej
-                    </a>
-                  </footer>
-                </div>
-              </div>
-            </article>
+                {/* </div> */}
+              </article>
+            </a>
           );
         })}
         {count > size && (

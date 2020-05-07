@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 	<div class="container content-section">
 		<div class="main-content">
-			<div class="left-side main-page articles" id="content">
+			<div class="left-side articles" id="content">
 				<h2 class="page-title" id="search-title"><?php printf(__( 'Wyniki wyszukiwania dla: %s', 'sputnik-search' ), get_search_query()); ?></h2>
 
 				<?php
@@ -17,7 +17,7 @@
 					$sort = $_GET['sort'];
 				?>
 
-				<div id="search-results"></div>
+				<div id="search-results" class="search-list"></div>
 
                 <script type="text/javascript">
                     (function($) {
