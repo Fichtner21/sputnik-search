@@ -14,7 +14,7 @@ class Front extends BaseController {
     public function register() {
         add_action( 'init', array( $this, 'create_files' ) );
         // Flush rewrite rules
-        flush_rewrite_rules();
+        add_action( 'init', 'flush_rewrite_rules' );
     }
 
     public function create_files() {
