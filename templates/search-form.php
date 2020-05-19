@@ -2,7 +2,7 @@
 
 <form role="search" method="GET" id="sputnik-search-form" class="sputnik-search-form" action="<?= esc_url(home_url('/')); ?>">
     <label class="sputnik-search-form__title" for="<?= $unique_id; ?>"><?= __('Przeszukaj portal', 'sputnik-search') . ' ' . get_bloginfo(); ?></label>
-    
+
     <div class="sputnik-search-form__wrapper">
         <div class="sputnik-search-form__row">
             <input type="text" id="s" class="sputnik-search-form__searchfield" tabindex="<?= is_search() ? '0': '-1'; ?>" placeholder="<?=__('Szukaj...', 'sputnik-search'); ?>" value="<?= isset($_GET['sq']) ? $_GET['sq'] : false; ?>" name="sq" required />
@@ -34,15 +34,15 @@
                     <option value="phrase"<?= "phrase" == $_GET['search-mode'] ? ' selected="selected"' : ''; ?>><?= __('Szukanie dokładnej frazy', 'sputnik-search'); ?></option>
                 </select>
             </div>
-            
+
             <div class="sputnik-search-form__row sputnik-search-form__row--category">
-                <label for="search-mode"><?= __('Wybierz kategorie
+                <label for="category-select"><?= __('Wybierz kategorie
                 ','sputnik-search'); ?></label>
                 <select id="category-select" name="category" title="<?= __('Wybierz kategorie','sputnik-search'); ?>">
                     <option value=""><?= __('Wybierz kategorie','sputnik-search'); ?></option>
-                    <?php 
+                    <?php
                         $categories = get_categories();
-                        foreach($categories as $category): 
+                        foreach($categories as $category):
                     ?>
                         <option value="<?= $category->term_id; ?>"<?= $category->term_id == $_GET['category'] ? ' selected="selected"' : ''; ?>><?= $category->name; ?></option>
                     <?php endforeach; ?>
@@ -50,11 +50,11 @@
             </div>
 
             <div class="sputnik-search-form__row sputnik-search-form__row--cs">
-                <label for="search-mode"><?= __('Uzględnij wielkość liter','sputnik-search'); ?></label>
-                <input type="checkbox" id="case_sensitive" name="case_sensitivity" title="<?= __('Uwzględnij wielkość liter', 'sputnik-search'); ?>" value="case" <?= $_GET['case_sensitivity'] == "case" ? ' checked' : ''; ?>><?= __('Uwzględnij wielkość liter', 'sputnik-search'); ?>
+                <label for="case_sensitive"><?= __('Uzględnij wielkość liter','sputnik-search'); ?></label>
+                <input type="checkbox" id="case_sensitive" name="case_sensitivity" title="<?= __('Uwzględnij wielkość liter', 'sputnik-search'); ?>" value="case" <?= $_GET['case_sensitivity'] == "case" ? ' checked' : ''; ?>>
             </div>
         </div>
-        
+
         <div class="sputnik-search-form__row sputnik-search-form__row__submit">
             <button type="submit" id="search-submit" class="sputnik-search-form__submit" tabindex="<?= is_search() ? '0': '-1'; ?>" title="<?= __('Wyszukaj', 'sputnik-search'); ?>"><?= __('Wyszukaj', 'sputnik-search'); ?></button>
         </div>

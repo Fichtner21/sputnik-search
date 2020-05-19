@@ -1,15 +1,15 @@
 <?php get_header(); ?>
-	<div class="container content-section">
-		<div class="main-content">
-			<div class="left-side articles" id="content">
-				<h2 class="page-title" id="search-title"><?php printf(__( 'Wyniki wyszukiwania dla: %s', 'sputnik-search' ), get_search_query()); ?></h2>
+	<div class="ss-container">
+		<div class="ss-content">
+			<div class="ss-articles" id="content">
+				<h2 class="ss-articles__title" id="search-title"><?php printf(__( 'Wyniki wyszukiwania dla: %s', 'sputnik-search' ), get_search_query()); ?></h2>
 
 				<?php
                     $q = $_GET['sq'];
 					$blog_id = get_current_blog_id();
 					$search_mode = $_GET['search-mode'];
 					$case_sensitive = $_GET['case_sensitive'];
-					$category = $_GET['category'];							
+					$category = $_GET['category'];
 					$from = $_GET['from'];
 					$size = $_GET['size'];
 					$date_from = $_GET['date_from'];
@@ -17,7 +17,7 @@
 					$sort = $_GET['sort'];
 				?>
 
-				<div id="search-results" class="search-list"></div>
+				<div id="search-results" class="ss-articles-list"></div>
 
                 <script type="text/javascript">
                     (function($) {
@@ -47,7 +47,7 @@
                     })(jQuery);
 				</script>
 			</div>
-		</div>		
+		</div>
 	</div>
 
 <?php get_footer(); ?>

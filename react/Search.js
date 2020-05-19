@@ -385,14 +385,14 @@ export class Search extends Component {
     return (
       <div>
         {count === 0 && q && this.count > 1 && (
-          <div className="suggests">
+          <div className="ss-suggests">
             Nie znaleziono wyników dla zapytania.
             {suggest !== q && suggest && (
               <span>
                 {" "}
                 Czy chodziło Tobie o{" "}
                 <span
-                  className="suggest-text"
+                  className="ss-suggests__item"
                   onClick={this.approveSuggest.bind(this, suggest)}
                 >
                   {suggest}
@@ -401,19 +401,28 @@ export class Search extends Component {
               </span>
             )}
             {(suggest === q || !suggest) && (
-              <span> Spróbuj wyszukać inne.</span>
+              <span className="ss-suggests__another">
+                {" "}
+                Spróbuj wyszukać inne.
+              </span>
             )}
           </div>
         )}
         {count > 0 && (
-          <div className="search-result-bar">
-            <div>Liczba znalezionych artykułów: {count}.</div>
-            <div>
-              <div>
-                <lable htmlFor="#number-of-results">
+          <div className="ss-navbar">
+            <div className="ss-count">
+              Liczba znalezionych artykułów: {count}.
+            </div>
+            <div className="ss-perpage">
+              <div className="ss-perpage__wrapper">
+                <label
+                  className="ss-perpage__label"
+                  htmlFor="#number-of-results"
+                >
                   Liczba wyników na stronie
-                </lable>
+                </label>
                 <select
+                  className="ss-perpage__select"
                   id="number-of-results"
                   title="Liczba wyników na stronie"
                   value={size}
@@ -427,9 +436,12 @@ export class Search extends Component {
                   <option value="100">100</option>
                 </select>
               </div>
-              <div>
-                <lable htmlFor="#number-of-results">Sortuj według</lable>
+              <div className="ss-sortby">
+                <label className="ss-sortby__label" htmlFor="#sort">
+                  Sortuj według
+                </label>
                 <select
+                  className="ss-sortby__select"
                   id="sort"
                   title="Sortuj według"
                   value={sort}
@@ -446,88 +458,81 @@ export class Search extends Component {
         {_.map(results, (result, i) => {
           const { fields, type, highlight } = result;
           const { attachment } = fields;
-          
-          return (
-            <a href={fields.url}>
-              <article className="article" key={i}>
-                {/* <div> */}                
-                  {type !== "attachments" && (
-                    <div className="thumbnail">                     
-                      <figure style={{ overflow: "hidden" }}>
-                        {fields.thumbnail && (
-                          <Img
-                            width={thumbnail.width}
-                            height={thumbnail.height}
-                            src={fields.thumbnail}
-                            className="attachment-post-thumbnail size-post-thumbnail wp-post-image"
-                            alt={fields.title}
-                          />                      
-                        )}                                                                   
-                      </figure>                     
-                    </div>
-                  )}                
-                  <div className="center">
-                    <header>
-                      <h4>
-                        {type === "attachments" ? (
-                          <span>
-                            <sup>
-                              [{this.getFileType(attachment.content_type)}]
-                            </sup>{" "}
-                            {fields.title}
-                          </span>
-                        ) : (
-                          fields.title
-                        )}
-                      </h4>
-                    </header>
-                    <div className="info">
-                      <div>
-                        <span>{fields.date}</span>
-                      </div>
-                      <div className="social-buttons">
-                        <a
-                          href={`https://www.facebook.com/sharer/sharer.php?u=${fields.url}title=${fields.title}”`}
-                          onClick={this.socialClick.bind(this)}
-                          className="fb"
-                        >
-                          <em className="fa fa-facebook" aria-hidden="true"></em>
-                        </a>
-                        {/* <a
-                          href={`https://plus.google.com/share?url=${fields.url}`}
-                          onClick={this.socialClick.bind(this)}
-                          class="g"
-                        >
-                          <em
-                            className="fa fa-google-plus"
-                            aria-hidden="true"
-                          ></em>
-                        </a> */}
-                      </div>
-                    </div>
-                    <div className="content-post-on-list">
-                      {_.map(highlight, (mark, index) => {
-                        const threeDots =
-                          ' <span style="padding=0 5px;">...</span> ';
-                        const text = `...${mark}${
-                          index === highlight.length - 1 ? threeDots : ""
-                        }`;
 
-                        return (
-                          <span
-                            key={index}
-                            dangerouslySetInnerHTML={{ __html: text }}
-                          />
-                        );
-                      })}
-                    </div>
-                    <footer>
-                      <a href={fields.url} className="more">
-                        Czytaj więcej
-                      </a>
-                    </footer>
+          return (
+            <a className="ss-article" href={fields.url} title={fields.title}>
+              <article className="ss-article__wrapper" key={i}>
+                {type !== "attachments" && (
+                  <div className="ss-article__thumbnail">
+                    <figure
+                      class="ss-article__figure"
+                      style={{ overflow: "hidden" }}
+                    >
+                      {fields.thumbnail && (
+                        <Img
+                          width={thumbnail.width}
+                          height={thumbnail.height}
+                          src={fields.thumbnail}
+                          className="attachment-post-thumbnail size-post-thumbnail wp-post-image ss-article__image"
+                          alt={fields.title}
+                        />
+                      )}
+                    </figure>
                   </div>
-                {/* </div> */}
+                )}
+                <div className="ss-article__content">
+                  <header className="ss-article__header">
+                    <h4 className="ss-article__title">
+                      {type === "attachments" ? (
+                        <span className="ss-article__attachments">
+                          <sup className="ss-article__attachment">
+                            [{this.getFileType(attachment.content_type)}]
+                          </sup>{" "}
+                          {fields.title}
+                        </span>
+                      ) : (
+                        fields.title
+                      )}
+                    </h4>
+                  </header>
+                  <div className="ss-article__meta">
+                    <div className="ss-article__date">
+                      <span className="ss-article__datevalue">
+                        {fields.date}
+                      </span>
+                    </div>
+                    <div className="ss-article__social">
+                      <a
+                        href={`https://www.facebook.com/sharer/sharer.php?u=${fields.url}title=${fields.title}”`}
+                        onClick={this.socialClick.bind(this)}
+                        className="ss-article__facebook"
+                      >
+                        <em className="fa fa-facebook" aria-hidden="true"></em>
+                      </a>
+                    </div>
+                  </div>
+                  <div className="ss-article__text">
+                    {_.map(highlight, (mark, index) => {
+                      const threeDots =
+                        ' <span style="padding=0 5px;">...</span> ';
+                      const text = `...${mark}${
+                        index === highlight.length - 1 ? threeDots : ""
+                      }`;
+
+                      return (
+                        <span
+                          key={index}
+                          dangerouslySetInnerHTML={{ __html: text }}
+                        />
+                      );
+                    })}
+                  </div>
+                  <footer className="ss-article__footer">
+                    <a href={fields.url} className="ss-article__more">
+                      Czytaj więcej
+                    </a>
+                  </footer>
+                </div>
               </article>
             </a>
           );
@@ -535,12 +540,12 @@ export class Search extends Component {
         {count > size && (
           <ReactPaginate
             pageCount={Math.ceil(count / size)}
-            containerClassName="custom-pagination"
+            containerClassName="ss-pagination"
             onPageChange={this.onPageChange.bind(this)}
             initialPage={from}
-            pageClassName="page-numbers"
-            previousClassName="page-numbers"
-            nextClassName="page-numbers"
+            pageClassName="ss-pagination__number"
+            previousClassName="ss-pagination__number ss-pagination__number--prev"
+            nextClassName="ss-pagination__number ss-pagination__number--next"
             nextLabel="»"
             previousLabel="«"
             forcePage={from}
