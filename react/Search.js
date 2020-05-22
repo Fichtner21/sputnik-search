@@ -460,81 +460,83 @@ export class Search extends Component {
           const { attachment } = fields;
 
           return (
-            <a className="ss-article" href={fields.url} title={fields.title}>
-              <article className="ss-article__wrapper" key={i}>
-                {type !== "attachments" && (
-                  <div className="ss-article__thumbnail">
-                    <figure
-                      class="ss-article__figure"
-                      style={{ overflow: "hidden" }}
-                    >
-                      {fields.thumbnail && (
-                        <Img
-                          width={thumbnail.width}
-                          height={thumbnail.height}
-                          src={fields.thumbnail}
-                          className="attachment-post-thumbnail size-post-thumbnail wp-post-image ss-article__image"
-                          alt={fields.title}
-                        />
-                      )}
-                    </figure>
-                  </div>
-                )}
-                <div className="ss-article__content">
-                  <header className="ss-article__header">
-                    <h4 className="ss-article__title">
-                      {type === "attachments" ? (
-                        <span className="ss-article__attachments">
-                          <sup className="ss-article__attachment">
-                            [{this.getFileType(attachment.content_type)}]
-                          </sup>{" "}
-                          {fields.title}
-                        </span>
-                      ) : (
-                        fields.title
-                      )}
-                    </h4>
-                  </header>
-                  <div className="ss-article__meta">
-                    <div className="ss-article__date">
-                      <span className="ss-article__datevalue">
-                        {fields.date}
-                      </span>
-                    </div>
-                    <div className="ss-article__social">
-                      <a
-                        href={`https://www.facebook.com/sharer/sharer.php?u=${fields.url}title=${fields.title}”`}
-                        onClick={this.socialClick.bind(this)}
-                        className="ss-article__facebook"
+            <div className="ss-articles">
+              <a className="ss-article" href={fields.url} title={fields.title}>
+                <article className="ss-article__wrapper" key={i}>
+                  {type !== "attachments" && (
+                    <div className="ss-article__thumbnail">
+                      <figure
+                        class="ss-article__figure"
+                        style={{ overflow: "hidden" }}
                       >
-                        <em className="fa fa-facebook" aria-hidden="true"></em>
-                      </a>
+                        {fields.thumbnail && (
+                          <Img
+                            width={thumbnail.width}
+                            height={thumbnail.height}
+                            src={fields.thumbnail}
+                            className="attachment-post-thumbnail size-post-thumbnail wp-post-image ss-article__image"
+                            alt={fields.title}
+                          />
+                        )}
+                      </figure>
                     </div>
-                  </div>
-                  <div className="ss-article__text">
-                    {_.map(highlight, (mark, index) => {
-                      const threeDots =
-                        ' <span style="padding=0 5px;">...</span> ';
-                      const text = `...${mark}${
-                        index === highlight.length - 1 ? threeDots : ""
-                      }`;
+                  )}
+                  <div className="ss-article__content">
+                    <header className="ss-article__header">
+                      <h4 className="ss-article__title">
+                        {type === "attachments" ? (
+                          <span className="ss-article__attachments">
+                            <sup className="ss-article__attachment">
+                              [{this.getFileType(attachment.content_type)}]
+                            </sup>{" "}
+                            {fields.title}
+                          </span>
+                        ) : (
+                          fields.title
+                        )}
+                      </h4>
+                    </header>
+                    <div className="ss-article__meta">
+                      <div className="ss-article__date">
+                        <span className="ss-article__datevalue">
+                          {fields.date}
+                        </span>
+                      </div>
+                      <div className="ss-article__social">
+                        <a
+                          href={`https://www.facebook.com/sharer/sharer.php?u=${fields.url}title=${fields.title}”`}
+                          onClick={this.socialClick.bind(this)}
+                          className="ss-article__facebook"
+                        >
+                          <em className="fa fa-facebook" aria-hidden="true"></em>
+                        </a>
+                      </div>
+                    </div>
+                    <div className="ss-article__text">
+                      {_.map(highlight, (mark, index) => {
+                        const threeDots =
+                          ' <span style="padding=0 5px;">...</span> ';
+                        const text = `...${mark}${
+                          index === highlight.length - 1 ? threeDots : ""
+                        }`;
 
-                      return (
-                        <span
-                          key={index}
-                          dangerouslySetInnerHTML={{ __html: text }}
-                        />
-                      );
-                    })}
+                        return (
+                          <span
+                            key={index}
+                            dangerouslySetInnerHTML={{ __html: text }}
+                          />
+                        );
+                      })}
+                    </div>
+                    <footer className="ss-article__footer">
+                      <a href={fields.url} className="ss-article__more">
+                        Czytaj więcej
+                      </a>
+                    </footer>
                   </div>
-                  <footer className="ss-article__footer">
-                    <a href={fields.url} className="ss-article__more">
-                      Czytaj więcej
-                    </a>
-                  </footer>
-                </div>
-              </article>
-            </a>
+                </article>
+              </a>
+            </div>
           );
         })}
         {count > size && (

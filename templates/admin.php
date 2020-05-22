@@ -10,6 +10,10 @@ if (!empty($_POST)) {
         update_option( 'display_version', $_POST['display-version'] );
     }
 
+    if(isset($_POST['styles-option'])) {
+        update_option( 'styles_option', $_POST['styles-option'] );
+    }
+
     if(isset($_POST['custom-css'])) {
         update_option( 'custom_css', $_POST['custom-css'] );
     }
@@ -19,6 +23,7 @@ $es_username = get_option('es_username');
 $es_password = get_option('es_password');
 
 $displayVersion = get_option('display_version');
+$stylesOption = get_option( 'styles_option' );
 
 $custom_css = get_option('custom_css');
 
@@ -48,9 +53,18 @@ $custom_css = get_option('custom_css');
                     <h3 class="sputnik-search-form__choose-title"><?= __('Wybierz opcje wyświetlania','sputnik-search'); ?>:</h3>
                     <div class="sputnik-search-form__radio-buttons">
                         <label for="react" class="sputnik-search-form__label"><?= __('React','sputnik-search'); ?>:</label>
-                        <input type="radio" id="react" name="display-version" class="sputnik-search-form__radio" value="react" <?= $displayVersion == 'react' ? 'checked' : false; ?>>
+                        <input type="radio" id="react" name="display-version" class="sputnik-search-form__radio" value="react" <?= $displayVersion == 'react' ? 'checked' : false; ?><?= $displayVersion ? false : 'checked'; ?>>
                         <label for="php" class="sputnik-search-form__label"><?= __('PHP','sputnik-search'); ?>:</label>
                         <input type="radio" id="php" name="display-version" class="sputnik-search-form__radio" value="php" <?= $displayVersion == 'php' ? 'checked' : false; ?>>
+                    </div>
+                </div>
+                <div class="sputnik-search-form__row">
+                    <h3 class="sputnik-search-form__choose-title"><?= __('Wybierz style wyświetlania:','sputnik-search'); ?>:</h3>
+                    <div class="sputnik-search-form__radio-buttons">
+                        <label for="plugin-styles" class="sputnik-search-form__label"><?= __('Style Wtyczki','sputnik-search'); ?>:</label>
+                        <input type="radio" id="plugin-styles" name="styles-option" class="sputnik-search-form__radio" value="plugin-styles" <?= $stylesOption == 'plugin-styles' ? 'checked' : false; ?><?= $stylesOption ? false : 'checked'; ?>>
+                        <label for="theme-styles" class="sputnik-search-form__label"><?= __('Style Motywu','sputnik-search'); ?>:</label>
+                        <input type="radio" id="theme-styles" name="styles-option" class="sputnik-search-form__radio" value="theme-styles" <?= $stylesOption == 'theme-styles' ? 'checked' : false; ?>>
                     </div>
                 </div>
                 <div class="sputnik-search-form__row">
