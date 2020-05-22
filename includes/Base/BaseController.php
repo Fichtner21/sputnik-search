@@ -54,7 +54,8 @@ class BaseController {
 
         if (!$response) {
             file_put_contents($this->plugin_path . '/add_file_response_', print_r(array("res" => $response, "info" => $info), true));
-            die("Connection Failure.n");
+
+            $error_log = "Connection Failure.n";
         }
 
         return array("res" => $response, "info" => $info);

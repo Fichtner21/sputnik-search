@@ -2,6 +2,10 @@
 
 Elasticsearch to rozproszony silnik RESTful służący do wyszukiwania i analizy, który jest w stanie sprostać rosnącej liczbie przypadków użycia. Będąc sercem Elasticsearch, centralnie przechowuje dane w celu szybkiego wyszukiwania, precyzyjnej trafności i wydajnych analiz, które można łatwo skalować.
 
+### Changelog
+
+- [v1.3.0] Http -> Https (elasticsearch.sputnik.pl)
+
 ### Tech
 
 W projeckie integracji Elasticsearch wykorzystujemy:
