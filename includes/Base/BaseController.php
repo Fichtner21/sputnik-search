@@ -43,6 +43,7 @@ class BaseController {
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_URL, "$this->apiURL$url");
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
         if($data){
             curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
