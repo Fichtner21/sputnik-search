@@ -34,7 +34,7 @@
                             var date_to = '<?= $date_to; ?>' || '';
 
                             window.configES.blogID = <?= $blog_id; ?> || 1;
-                            window.configES.apiURL = 'http://35.158.146.123:9005';
+                            window.configES.apiURL = 'https://elasticsearch.sputnik.pl';
                             window.configES.user = '<?= get_option('es_username'); ?>';
                             window.configES.facebook.iconUrl = '';
 

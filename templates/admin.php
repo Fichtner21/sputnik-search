@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 if (!empty($_POST)) {
     if(isset($_POST['es-username']) || isset($_POST['es-password'])){
@@ -9,12 +9,18 @@ if (!empty($_POST)) {
     if(isset($_POST['display-version'])) {
         update_option( 'display_version', $_POST['display-version'] );
     }
+
+    if(isset($_POST['custom-css'])) {
+        update_option( 'custom_css', $_POST['custom-css'] );
+    }
 }
 
 $es_username = get_option('es_username');
 $es_password = get_option('es_password');
 
 $displayVersion = get_option('display_version');
+
+$custom_css = get_option('custom_css');
 
 ?>
 
@@ -25,37 +31,41 @@ $displayVersion = get_option('display_version');
         </div>
 
         <div class="sputnik-search-page__content">
-            <h1 class="sputnik-search-page__title">Sputnik Search</h1>
-            <p class="sputnik-search-page__text">Zaawansowana wyszukiwarka stworzona przy użyciu ElasticSearch</p>
+            <h1 class="sputnik-search-page__title"><?= __('Sputnik Search','sputnik-search'); ?></h1>
+            <p class="sputnik-search-page__text"><?= __('Zaawansowana wyszukiwarka stworzona przy użyciu ElasticSearch','sputnik-search'); ?></p>
 
             <form method="POST" class="sputnik-search-form">
-                <h2 class="sputnik-search-form__title">Wypełnij pola, aby można było nawiązać połączenie</h2>
+                <h2 class="sputnik-search-form__title"><?= __('Wypełnij pola, aby można było nawiązać połączenie','sputnik-search'); ?></h2>
                 <div class="sputnik-search-form__row">
-                    <label for="es-username" class="sputnik-search-form__label">ESUserName:</label>
+                    <label for="es-username" class="sputnik-search-form__label"><?= __('ESUserName','sputnik-search'); ?>:</label>
                     <input type="text" id="es-username" name="es-username" class="sputnik-search-form__input" value="<?= $es_username ? $es_username : false; ?>">
                 </div>
                 <div class="sputnik-search-form__row">
-                    <label for="es-password" class="sputnik-search-form__label">ESPassword</label>
+                    <label for="es-password" class="sputnik-search-form__label"><?= __('ESPassword','sputnik-search'); ?>:</label>
                     <input type="text" id="es-password" name="es-password" class="sputnik-search-form__input" value="<?= $es_password ? $es_password : false; ?>">
                 </div>
                 <div class="sputnik-search-form__row">
-                    <h3 class="sputnik-search-form__choose-title">Wybierz opcje wyświetlania:</h3>
+                    <h3 class="sputnik-search-form__choose-title"><?= __('Wybierz opcje wyświetlania','sputnik-search'); ?>:</h3>
                     <div class="sputnik-search-form__radio-buttons">
-                        <label for="react" class="sputnik-search-form__label">React:</label>
+                        <label for="react" class="sputnik-search-form__label"><?= __('React','sputnik-search'); ?>:</label>
                         <input type="radio" id="react" name="display-version" class="sputnik-search-form__radio" value="react" <?= $displayVersion == 'react' ? 'checked' : false; ?>>
-                        <label for="php" class="sputnik-search-form__label">PHP:</label>
+                        <label for="php" class="sputnik-search-form__label"><?= __('PHP','sputnik-search'); ?>:</label>
                         <input type="radio" id="php" name="display-version" class="sputnik-search-form__radio" value="php" <?= $displayVersion == 'php' ? 'checked' : false; ?>>
                     </div>
                 </div>
                 <div class="sputnik-search-form__row">
-                    <button type="submit" class="btn btn--medium btn--primary sputnik-search-form__submit" title="Zapisz dane">Zapisz dane</button>
+                    <h3 class="sputnik-search-form__choose-title"><?= __('Własny kod CSS','sputnik-search'); ?>:</h3>
+                    <textarea class="sputnik-search-form__textarea" name="custom-css" id="custom-css" cols="30" rows="5"><?= $custom_css ? $custom_css : false; ?></textarea>
+                </div>
+                <div class="sputnik-search-form__row">
+                    <button type="submit" class="btn btn--medium btn--primary sputnik-search-form__submit" title="Zapisz dane"><?= __('Zapisz dane','sputnik-search'); ?></button>
                 </div>
             </form>
 
             <div class="sputnik-action-buttons">
-                <button class="btn btn--medium btn--primary sputnik-action-buttons__button" title="Synchronizuj Wpisy" id="js-synchronize">Synchronizuj Wpisy</button>
-                <button class="btn btn--medium btn--primary sputnik-action-buttons__button" title="Synchronizuj Pliki" id="js-synchronize-files">Synchronizuj Pliki</button>
-                <button class="btn btn--medium btn--danger sputnik-action-buttons__button" title="Usuń indeks" id="js-deleteindex">Usuń indeks <small>Usunięcie indeksu spowoduje błąd w wyszukiwarce</small></button>
+                <button class="btn btn--medium btn--primary sputnik-action-buttons__button" title="Synchronizuj Wpisy" id="js-synchronize"><?= __('Synchronizuj Wpisy','sputnik-search'); ?></button>
+                <button class="btn btn--medium btn--primary sputnik-action-buttons__button" title="Synchronizuj Pliki" id="js-synchronize-files"><?= __('Synchronizuj Pliki','sputnik-search'); ?></button>
+                <button class="btn btn--medium btn--danger sputnik-action-buttons__button" title="Usuń indeks" id="js-deleteindex"><?= __('Usuń indeks <small>Usunięcie indeksu spowoduje błąd w wyszukiwarce</small>','sputnik-search'); ?></button>
             </div>
 
             <ul id="es-logs"></ul>
@@ -64,6 +74,12 @@ $displayVersion = get_option('display_version');
 </div>
 
 <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        // const myCodeMirror = CodeMirror.fromTextArea(document.getElementById('custom-css'));
+        const textarea = document.getElementById('custom-css');
+
+        const myCodeMirror = CodeMirror.fromTextArea(textarea);
+    });
     (function($) {
         $(document).ready(function($) {
             // Synchronize index
@@ -96,7 +112,7 @@ $displayVersion = get_option('display_version');
                     }
                 }).fail(function() {
                     $('#es-logs').append("<li style='color: red;'>Nie dodano wpisu " + index + "!</li>");
-      
+
                     sendPostToES(++index);
                 });
             }
@@ -107,7 +123,7 @@ $displayVersion = get_option('display_version');
 
                 sendFilesToEs(index);
             });
-    
+
             function sendFilesToEs(index) {
                 var data = {
                     'action': 'index_attachment_in_es',

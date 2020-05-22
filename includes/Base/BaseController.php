@@ -11,7 +11,7 @@ class BaseController {
 
     public $ESUserName;
     public $ESPassword;
-    
+
     public $apiURL;
     public $token;
 
@@ -25,7 +25,7 @@ class BaseController {
         $this->ESUserName = get_option('es_username');
         $this->ESPassword = get_option('es_password');
 
-        $this->apiURL = 'http://35.158.146.123:9005/api/';
+        $this->apiURL = 'https://elasticsearch.sputnik.pl/api/';
         $this->token = '';
 
         $this->blog_id = get_current_blog_id();
@@ -37,26 +37,26 @@ class BaseController {
             array('Content-Type: application/json'),
             $additionalsHeaders
         );
-    
+
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $type);
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_URL, "$this->apiURL$url");
-    
+
         if($data){
             curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
         }
-    
+
         $response = curl_exec($curl);
-    
+
         $info = curl_getinfo($curl);
-    
+
         if (!$response) {
             file_put_contents($this->plugin_path . '/add_file_response_', print_r(array("res" => $response, "info" => $info), true));
             die("Connection Failure.n");
         }
-    
+
         return array("res" => $response, "info" => $info);
     }
 }

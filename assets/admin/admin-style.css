@@ -161,6 +161,7 @@
   font-size: 14px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0;
+  color: black;
 }
 
 .sputnik-search-form__radio-buttons {
@@ -174,6 +175,18 @@
 
 .sputnik-search-form__radio-buttons input {
   margin-right: 15px;
+}
+
+.sputnik-search-form__textarea {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 15px;
+  font-family: sans-serif;
+  font-size: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0;
+  color: black;
 }
 
 .suggest-text {

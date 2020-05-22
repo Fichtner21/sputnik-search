@@ -30,7 +30,7 @@ class SputnikSearch extends BaseController {
 		foreach($get_post_types as $post_type) {
 			array_push($post_types, $post_type);
 		}
-		
+
 		$this->post_types = $post_types;
 	}
 
@@ -47,13 +47,13 @@ class SputnikSearch extends BaseController {
 	}
 
 	public function content_to_mark($content, $length = 340) {
-		$search_query = $this->search_query;		
+		$search_query = $this->search_query;
 
-		$content = strip_shortcodes($content);		
+		$content = strip_shortcodes($content);
 
-		$_content = str_replace($search_query, "<mark>" . $search_query . "</mark>", $content);	
+		$_content = str_replace($search_query, "<mark>" . $search_query . "</mark>", $content);
 
-		preg_match("/[^\<\>]{0,25}(?:<mark>[^\<\>]*<\/mark>[^\<\>]{0,25})+/", $_content, $found);		
+		preg_match("/[^\<\>]{0,25}(?:<mark>[^\<\>]*<\/mark>[^\<\>]{0,25})+/", $_content, $found);
 
 		$to_return = "";
 
@@ -74,7 +74,7 @@ class SputnikSearch extends BaseController {
 		$q = urlencode($this->search_query);
 
 		$url = $this->apiURL . "search/$this->ESUserName/$this->blog_id?q=$q&from=$from&size=$posts_per_page&mode=&cs=&category=&d_from=&d_to=&sort=&no_attachments";
-		
+
 		$results = json_decode(file_get_contents($url));
 
 		$this->count = $results->count;
@@ -86,13 +86,13 @@ class SputnikSearch extends BaseController {
 				$one_post['ID'] = $hit->_id;
 				$one_post['post_type'] = get_post_type($hit->_id);
 				$one_post['post_title'] = $hit->_source->title;
-				$contentSearch = 'content.search';	
-				$contentTitle = 'content.title';			
+				$contentSearch = 'content.search';
+				$contentTitle = 'content.title';
 				$one_post['post_content'] = '';
-				
+
 				if($hit->highlight && $hit->highlight->$contentSearch) {
 					$first = true;
-					foreach($hit->highlight->$contentSearch as $line) {						
+					foreach($hit->highlight->$contentSearch as $line) {
 						if($first) {
 							$first = false;
 							$one_post['post_content'] .= $line;

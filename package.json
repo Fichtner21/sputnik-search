@@ -22,6 +22,7 @@
     "webpack": "^3.4.1"
   },
   "dependencies": {
+    "codemirror": "^5.53.2",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",

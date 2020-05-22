@@ -15,6 +15,9 @@ class Enqueue extends BaseController {
     function enqueue_admin_assets() {
         wp_enqueue_style( 'sputnik_search_admin_styles', $this->plugin_url . 'assets/admin/admin-style.css' );
         wp_enqueue_script( 'sputnik_search_admin_scripts', $this->plugin_url . 'assets/admin/main.js' );
+
+        wp_enqueue_style( 'codermirror_css', $this->plugin_url . 'assets/admin/codemirror.css' );
+        wp_enqueue_script( 'codermirror_js', $this->plugin_url . 'assets/admin/codemirror.js' );
     }
 
     function enqueue_public_assets() {
@@ -23,6 +26,14 @@ class Enqueue extends BaseController {
         wp_enqueue_script( 'sputnik_search_public_scripts', $this->plugin_url . 'assets/public/main.js' );
         if(get_option('display_version') == 'react') {
             wp_enqueue_script( 'sputnik_search_react_scripts', $this->plugin_url . 'react/sputnik-wordpress-search.build.js' );
+        }
+        if(get_option('custom_css')) {
+            if(!function_exists('custom_styles')) {
+                echo '<style>';
+                echo get_option('custom_css');
+                echo '</style>';
+            }
+            add_action('wp_head', 'custom_styles', 20);
         }
     }
 }
