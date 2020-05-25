@@ -2,7 +2,7 @@
 
 <form role="search" method="GET" id="sputnik-search-form" class="sputnik-search-form" action="<?= esc_url(home_url('/')); ?>">
     <div class="sputnik-search-form__container">
-        <label class="sputnik-search-form__title" for="<?= $unique_id; ?>"><?= __('Przeszukaj portal', 'sputnik-search') . ' ' . get_bloginfo(); ?></label>
+        <label class="sputnik-search-form__title" for="s"><?= __('Przeszukaj portal', 'sputnik-search') . ' ' . get_bloginfo(); ?></label>
 
         <div class="sputnik-search-form__wrapper">
             <div class="sputnik-search-form__row">
@@ -51,8 +51,8 @@
                 </div>
 
                 <div class="sputnik-search-form__row sputnik-search-form__row--cs">
-                    <label for="case_sensitive"><?= __('Uzględnij wielkość liter','sputnik-search'); ?></label>
-                    <input type="checkbox" id="case_sensitive" name="case_sensitivity" title="<?= _('Uwzględnij wielkość liter', 'sputnik-search'); ?>" value="case" <?= $_GET['case_sensitivity'] == "case" ? ' checked' : ''; ?>><?= _('Uwzględnij wielkość liter', 'sputnik-search'); ?>
+                    <label for="case_sensitive"><?= __('Uwzględnij wielkość liter','sputnik-search'); ?></label>
+                    <input type="checkbox" id="case_sensitive" name="case_sensitivity" title="<?= __('Uwzględnij wielkość liter', 'sputnik-search'); ?>" value="case" <?= $_GET['case_sensitivity'] == "case" ? ' checked' : ''; ?>>
                 </div>
             </div>
 
