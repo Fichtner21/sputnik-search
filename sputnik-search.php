@@ -7,7 +7,7 @@
 Plugin Name: Sputnik Search
 Plugin URI: https://sputnik.pl
 Description: Advanced search in website using ElasticSearch
-Version: 1.4.2
+Version: 1.5.0
 Author: Sputnik
 Author URI: https://sputnik.pl
 Text Domain: sputnik-search
