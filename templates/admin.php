@@ -27,6 +27,12 @@ $stylesOption = get_option( 'styles_option' );
 
 $custom_css = get_option('custom_css');
 
+if(!empty($_POST) && get_option('custom_css')) {
+    $custom_css_filename = plugin_dir_path(dirname( __FILE__ ) ) . 'assets/public/custom-css.css';
+
+    file_put_contents($custom_css_filename, $custom_css);
+}
+
 ?>
 
 <div class="wrap sputnik-search-page">
@@ -63,7 +69,7 @@ $custom_css = get_option('custom_css');
                     <div class="sputnik-search-form__radio-buttons">
                         <label for="plugin-styles" class="sputnik-search-form__label"><?= __('Style Wtyczki','sputnik-search'); ?>:</label>
                         <input type="radio" id="plugin-styles" name="styles-option" class="sputnik-search-form__radio" value="plugin-styles" <?= $stylesOption == 'plugin-styles' ? 'checked' : false; ?><?= $stylesOption ? false : 'checked'; ?>>
-                        <label for="theme-styles" class="sputnik-search-form__label"><?= __('Style Motywu','sputnik-search'); ?>:</label>
+                        <label for="theme-styles" class="sputnik-search-form__label"><?= __('Brak styli','sputnik-search'); ?>:</label>
                         <input type="radio" id="theme-styles" name="styles-option" class="sputnik-search-form__radio" value="theme-styles" <?= $stylesOption == 'theme-styles' ? 'checked' : false; ?>>
                     </div>
                 </div>

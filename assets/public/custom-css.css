@@ -1,0 +1,10 @@
+.sputnik-search-form {
+  background-color: red;
+  color: white;
+}
+
+.sputnik-search-form input,
+.sputnik-search-form select {
+  color: black;
+  background: white;
+}

@@ -61,4 +61,28 @@ class BaseController {
 
         return array("res" => $response, "info" => $info);
     }
+
+    public function compareFiles($file_a, $file_b) {
+        if (filesize($file_a) == filesize($file_b) && md5_file($file_a) == md5_file($file_b)) {
+            $fp_a = fopen($file_a, 'rb');
+            $fp_b = fopen($file_b, 'rb');
+
+            while ((!feof($fp_a) && ($b = fread($fp_a, 4096)) !== false)) {
+                $b_b = fread($fp_b, 4096);
+                if ($b !== $b_b)
+                {
+                    fclose($fp_a);
+                    fclose($fp_b);
+                    return false;
+                }
+            }
+
+            fclose($fp_a);
+            fclose($fp_b);
+
+            return true;
+        }
+
+        return false;
+    }
 }
