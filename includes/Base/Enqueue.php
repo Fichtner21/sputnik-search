@@ -10,7 +10,6 @@ class Enqueue extends BaseController {
     public function register() {
         add_action ( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
         add_action ( 'wp_enqueue_scripts', array( $this, 'enqueue_public_assets' ) );
-        add_action ( 'init', array( $this, 'custom_css' ) );
     }
 
     function enqueue_admin_assets() {
