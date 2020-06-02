@@ -154,3 +154,35 @@
   cursor: pointer;
   transition: all 0.2s linear;
 }
+
+.content-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.content-categories__item {
+  display: flex;
+  align-items: flex-start;
+  max-height: 50px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 0;
+  padding: 10px;
+  position: relative;
+}
+
+.content-categories__button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  color: black;
+  background-color: transparent;
+  border: transparent;
+}

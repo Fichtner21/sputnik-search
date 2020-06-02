@@ -14,11 +14,7 @@
 					$size = $_GET['size'];
 					$date_from = $_GET['date_from'];
                     $date_to = $_GET['date_to'];
-                    if(isset($_GET['sort'])) {
-                        $sort = $_GET['sort'];
-                    } else {
-                        $sort = 'date_new';
-                    }
+                    $sort = $_GET['sort'];
 				?>
 
 				<div id="search-results" class="ss-articles-list"></div>
@@ -31,7 +27,7 @@
                             var size = '<?= $size; ?>' || 10;
                             var search_mode = '<?= $search_mode; ?>' || '';
                             var case_sensitive = '<?= $case_sensitive; ?>' || '';
-                            var sort = '<?= $sort ? $sort : "date_new"; ?>' || 'date_new';
+                            var sort = '<?= $sort ? $sort : ""; ?>' || '';
                             var category = <?= $category ? $category : 0; ?> || '';
 
                             var date_from = '<?= $date_from; ?>' || '';

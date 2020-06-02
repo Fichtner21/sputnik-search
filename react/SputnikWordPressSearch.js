@@ -34,7 +34,7 @@ export class SputnikWordPressSearch extends Component {
 
 SputnikWordPressSearch.defaultProps = {
   q: "",
-  sort: "date_new",
+  sort: "",
   category: "",
   cs: "",
   d_from: "",

@@ -13,6 +13,7 @@
 }
 
 .sputnik-search-form__title {
+  display: block;
   margin-bottom: 8px;
   font-weight: bold;
 }
@@ -89,7 +90,8 @@
 }
 
 .sputnik-search-form__parametrs {
-  display: grid;
+  /* display: grid; */
+  display: none;
   grid-template-columns: repeat(2, minmax(250px, 1fr));
   gap: 15px;
 }
