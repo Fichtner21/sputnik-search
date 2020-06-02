@@ -57,6 +57,7 @@
             </div>
 
             <div class="sputnik-search-form__row sputnik-search-form__row__submit">
+                <input type="hidden" name="sort" id="sort" value="date_new">
                 <button type="submit" id="search-submit" class="sputnik-search-form__submit" tabindex="<?= is_search() ? '0': '-1'; ?>" title="<?= __('Wyszukaj', 'sputnik-search'); ?>"><?= __('Wyszukaj', 'sputnik-search'); ?></button>
             </div>
         </div>

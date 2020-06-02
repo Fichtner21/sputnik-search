@@ -27,7 +27,7 @@
                             var size = '<?= $size; ?>' || 10;
                             var search_mode = '<?= $search_mode; ?>' || '';
                             var case_sensitive = '<?= $case_sensitive; ?>' || '';
-                            var sort = '<?= $sort ? $sort : ""; ?>' || '';
+                            var sort = '<?= $sort ? $sort : "date_new"; ?>' || 'date_new';
                             var category = <?= $category ? $category : 0; ?> || '';
 
                             var date_from = '<?= $date_from; ?>' || '';

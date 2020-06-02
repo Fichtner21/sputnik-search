@@ -447,9 +447,9 @@ export class Search extends Component {
                   value={sort}
                   onChange={this.onChangeSort.bind(this)}
                 >
-                  <option value="score">Trafność</option>
                   <option value="date_new">Data najnowsza</option>
                   <option value="date_old">Data najstarsza</option>
+                  <option value="score">Trafność</option>
                 </select>
               </div>
             </div>
