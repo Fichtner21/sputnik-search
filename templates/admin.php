@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 
 if (!empty($_POST)) {
     if(isset($_POST['es-username']) || isset($_POST['es-password'])){
@@ -14,16 +14,25 @@ if (!empty($_POST)) {
         update_option( 'styles_option', $_POST['styles-option'] );
     }
 
+    if(isset($_POST['search-version'])) {
+        update_option( 'search_version', $_POST['search-version'] );
+    }
+
     if(isset($_POST['custom-css'])) {
         update_option( 'custom_css', $_POST['custom-css'] );
     }
 }
+
+if(isset($_SESSION['cat-terms']) && !empty($_SESSION['cat-terms'])) {
+    $cat_terms = array_unique($_SESSION['cat-terms']);
+ }
 
 $es_username = get_option('es_username');
 $es_password = get_option('es_password');
 
 $displayVersion = get_option('display_version');
 $stylesOption = get_option( 'styles_option' );
+$searchVersion = get_option( 'search_version' );
 
 $custom_css = get_option('custom_css');
 
@@ -65,13 +74,67 @@ if(!empty($_POST) && get_option('custom_css')) {
                     </div>
                 </div>
                 <div class="sputnik-search-form__row">
-                    <h3 class="sputnik-search-form__choose-title"><?= __('Wybierz style wyświetlania:','sputnik-search'); ?>:</h3>
+                    <h3 class="sputnik-search-form__choose-title"><?= __('Wybierz style wyświetlania','sputnik-search'); ?>:</h3>
                     <div class="sputnik-search-form__radio-buttons">
                         <label for="plugin-styles" class="sputnik-search-form__label"><?= __('Style Wtyczki','sputnik-search'); ?>:</label>
                         <input type="radio" id="plugin-styles" name="styles-option" class="sputnik-search-form__radio" value="plugin-styles" <?= $stylesOption == 'plugin-styles' ? 'checked' : false; ?><?= $stylesOption ? false : 'checked'; ?>>
                         <label for="theme-styles" class="sputnik-search-form__label"><?= __('Brak styli','sputnik-search'); ?>:</label>
                         <input type="radio" id="theme-styles" name="styles-option" class="sputnik-search-form__radio" value="theme-styles" <?= $stylesOption == 'theme-styles' ? 'checked' : false; ?>>
                     </div>
+                </div>
+                <div class="sputnik-search-form__row">
+                    <h3 class="sputnik-search-form__choose-title"><?= __('Wybierz wersje wyszukiwarki','sputnik-search'); ?>:</h3>
+                    <div class="sputnik-search-form__radio-buttons">
+                        <label for="simple-search" class="sputnik-search-form__label"><?= __('Wersja Prosta','sputnik-search'); ?>:</label>
+                        <input type="radio" id="simple-search" name="search-version" class="sputnik-search-form__radio" value="simple-search" <?= $searchVersion == 'simple-search' ? 'checked' : false; ?>>
+                        <label for="expanded-search" class="sputnik-search-form__label"><?= __('Wersja z parametrami','sputnik-search'); ?>:</label>
+                        <input type="radio" id="expanded-search" name="search-version" class="sputnik-search-form__radio" value="expanded-search" <?= $searchVersion == 'expanded-search' ? 'checked' : false; ?> <?= $searchVersion ? false : 'checked'; ?>>
+                    </div>
+                </div>
+                <div class="sputnik-search-form__row">
+                    <h3 class="sputnik-search-form__choose-title"><?= __('Wybierz kategorie:','sputnik-search'); ?>:</h3>
+                    <?php
+                        $get_all_taxonomies = get_taxonomies(array(
+                            'public' => true
+                        ));
+
+                        $term_output = '';
+
+                        $_SESSION['cat-terms'] = array();
+
+                        echo '<button type="button" id="js-sputnik-search-categories-list-toggle">'. __('Rozwiń listę kategorii', 'sputnik-search') .'</button>';
+                        echo '<ul class="content-categories" id="js-sputnik-search-categories-list">';
+
+                        foreach($get_all_taxonomies as $taxonomy) {
+                            $terms = get_terms([
+                                'taxonomy' => $taxonomy,
+                                'hide_empty' => false,
+                            ]);
+
+                            foreach($terms as $term) {
+                                $term_name_slug = trim( strtolower( str_replace( ' ', '-', $term->name ) ) );
+                                $term_ID = $term->term_id;
+
+                                $_SESSION['cat-terms'][$term_name_slug] = $term_ID;
+                            }
+                        }
+
+                        if($cat_terms&& !empty($cat_terms)) {
+                            foreach($cat_terms as $term_name => $term_id) {
+                                $removed_quote_up_title = str_replace('"', ' ', $term_name );
+                                $removed_quote_down_title = str_replace('„', ' ', $removed_quote_up_title );
+                                $term_name_title = ucfirst( strtolower( trim( ( str_replace('-', ' ', $removed_quote_down_title ) ) ) ) );
+
+                                $term_output .= '<li class="content-categories__item">';
+                                $term_output .= '<label class="content-categories__label" for="'. $term_id .'"><input type="checkbox" id="'. $term_id .'" name="'. $term_id .'" class="content-categories__checkbox">'. $term_name_title .'<button type="button" class="content-categories__button">+</button></label>';
+                                $term_output .= '</li>';
+
+                                // echo $term_output;
+                            }
+                        }
+
+                        echo '</ul>';
+                    ?>
                 </div>
                 <div class="sputnik-search-form__row">
                     <h3 class="sputnik-search-form__choose-title"><?= __('Własny kod CSS','sputnik-search'); ?>:</h3>

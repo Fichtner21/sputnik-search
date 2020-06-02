@@ -13,8 +13,12 @@
 					$from = $_GET['from'];
 					$size = $_GET['size'];
 					$date_from = $_GET['date_from'];
-					$date_to = $_GET['date_to'];
-					$sort = $_GET['sort'];
+                    $date_to = $_GET['date_to'];
+                    if(isset($_GET['sort'])) {
+                        $sort = $_GET['sort'];
+                    } else {
+                        $sort = 'date_new';
+                    }
 				?>
 
 				<div id="search-results" class="ss-articles-list"></div>

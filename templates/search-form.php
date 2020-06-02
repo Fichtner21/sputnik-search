@@ -8,6 +8,8 @@
             <div class="sputnik-search-form__row">
                 <input type="text" id="s" class="sputnik-search-form__searchfield" tabindex="<?= is_search() ? '0': '-1'; ?>" placeholder="<?=__('Szukaj...', 'sputnik-search'); ?>" value="<?= isset($_GET['sq']) ? $_GET['sq'] : false; ?>" name="sq" required />
             </div>
+
+            <?php if(get_option('search_version') === 'expanded-search' || get_option('search_version') === false ) : ?>
             <div class="sputnik-search-form__parametrs">
                 <div class="sputnik-search-form__row sputnik-search-form__row--hidden">
                     <label for="s" class="hidden"></label>
@@ -55,6 +57,7 @@
                     <input type="checkbox" id="case_sensitive" name="case_sensitivity" title="<?= __('Uwzględnij wielkość liter', 'sputnik-search'); ?>" value="case" <?= $_GET['case_sensitivity'] == "case" ? ' checked' : ''; ?>>
                 </div>
             </div>
+            <?php endif; ?>
 
             <div class="sputnik-search-form__row sputnik-search-form__row__submit">
                 <input type="hidden" name="sort" id="sort" value="date_new">
