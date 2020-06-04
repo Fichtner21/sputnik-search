@@ -25,7 +25,24 @@ if (!empty($_POST)) {
 
 if(isset($_SESSION['cat-terms']) && !empty($_SESSION['cat-terms'])) {
     $cat_terms = array_unique($_SESSION['cat-terms']);
- }
+
+    $choosen_terms = array();
+
+    foreach($cat_terms as $term) {
+        // print_r( $term . ' - ' . $_POST[$term] . '<br>' );
+        if(isset($_POST[$term])) {
+            array_push($choosen_terms, $term);
+
+            $choosen_terms_string = implode(',', $choosen_terms);
+
+            update_option( 'choosen_term_' . $term, $term );
+
+            update_option( 'choosen_terms', $choosen_terms_string );
+
+            unset($_SESSION['cat-terms']);
+        }
+    }
+}
 
 $es_username = get_option('es_username');
 $es_password = get_option('es_password');
@@ -98,8 +115,6 @@ if(!empty($_POST) && get_option('custom_css')) {
                             'public' => true
                         ));
 
-                        $term_output = '';
-
                         $_SESSION['cat-terms'] = array();
 
                         echo '<button type="button" id="js-sputnik-search-categories-list-toggle">'. __('Rozwiń listę kategorii', 'sputnik-search') .'</button>';
@@ -120,16 +135,18 @@ if(!empty($_POST) && get_option('custom_css')) {
                         }
 
                         if($cat_terms&& !empty($cat_terms)) {
+                            $i = 0;
                             foreach($cat_terms as $term_name => $term_id) {
-                                $removed_quote_up_title = str_replace('"', ' ', $term_name );
-                                $removed_quote_down_title = str_replace('„', ' ', $removed_quote_up_title );
-                                $term_name_title = ucfirst( strtolower( trim( ( str_replace('-', ' ', $removed_quote_down_title ) ) ) ) );
+                                $term_name = get_term( $term_id )->name;
+                                $choosed_option = get_option( 'choosen_term_' . $term_id );
 
-                                $term_output .= '<li class="content-categories__item">';
-                                $term_output .= '<label class="content-categories__label" for="'. $term_id .'"><input type="checkbox" id="'. $term_id .'" name="'. $term_id .'" class="content-categories__checkbox">'. $term_name_title .'<button type="button" class="content-categories__button">+</button></label>';
-                                $term_output .= '</li>';
+                                if($term_id == $choosed_option) {
+                                    $term_output = '<li class="content-categories__item active"><label title="'. $term_name .'" class="content-categories__label" for="'. $term_id .'"><input type="checkbox" id="'. $term_id .'" name="'. $term_id .'" class="content-categories__checkbox" checked>'. $term_name .'</label></li>';
+                                } else {
+                                    $term_output = '<li class="content-categories__item"><label title="'. $term_name .'" class="content-categories__label" for="'. $term_id .'"><input type="checkbox" id="'. $term_id .'" name="'. $term_id .'" class="content-categories__checkbox">'. $term_name .'</label></li>';
+                                }
 
-                                // echo $term_output;
+                                echo $term_output;
                             }
                         }
 

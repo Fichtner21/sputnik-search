@@ -1,3 +1,9 @@
+.sputnik-search-page *,
+.sputnik-search-page *::before,
+.sputnik-search-page *::after {
+  box-sizing: border-box;
+}
+
 .sputnik-search-page__inner {
   background-color: white;
   box-shadow: 6px 6px 18px -6px rgba(0, 0, 0, 0.08);
@@ -155,34 +161,76 @@
   transition: all 0.2s linear;
 }
 
-.content-categories {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-.content-categories__item {
-  display: flex;
-  align-items: flex-start;
-  max-height: 50px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  margin-bottom: 0;
-  padding: 10px;
-  position: relative;
-}
-
-.content-categories__button {
-  position: absolute;
-  top: 0;
-  right: 0;
+#js-sputnik-search-categories-list-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 20px;
-  height: 20px;
-  color: black;
-  background-color: transparent;
-  border: transparent;
+  height: 45px;
+  padding: 10px 40px;
+  background-color: #58b749;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s linear;
+  border: 0;
+}
+
+.content-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  animation: fadeIn 1s ease both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.content-categories::-webkit-scrollbar {
+  width: 5px;
+}
+
+.content-categories::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+  border-radius: 100px;
+}
+
+.content-categories::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+  background: #58b749;
+}
+
+.content-categories__item {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  margin-bottom: 0;
+  position: relative;
+  animation: fadeIn 0.5s ease both;
+}
+
+.content-categories__label {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.content-categories__item.active {
+  border: 1px solid #58b749;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.05);
 }
