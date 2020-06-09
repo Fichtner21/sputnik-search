@@ -12,6 +12,7 @@ final class Init
 	 */
 	public static function get_services() {
 		return [
+			Base\Session::class,
 			Pages\Admin::class,
 			Pages\Front::class,
 			Base\Enqueue::class,
@@ -26,7 +27,7 @@ final class Init
 	}
 
 	/**
-	 * Loop through the classes, initialize them, 
+	 * Loop through the classes, initialize them,
 	 * and call the register() method if it exists
 	 * @return
 	 */

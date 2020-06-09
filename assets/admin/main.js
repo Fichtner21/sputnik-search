@@ -144,7 +144,9 @@
 })(jQuery);
 
 document.addEventListener("DOMContentLoaded", function () {
-  const textarea = document.getElementById("custom-css");
+  if (document.getElementById("custom-css")) {
+    const textarea = document.getElementById("custom-css");
 
-  const myCodeMirror = CodeMirror.fromTextArea(textarea);
+    const myCodeMirror = CodeMirror.fromTextArea(textarea);
+  }
 });

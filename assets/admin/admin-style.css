@@ -23,6 +23,7 @@
 }
 
 .sputnik-search-form__input,
+.sputnik-search-form input[type="password"],
 .sputnik-search-form input[type="text"] {
   display: inline-flex;
   align-items: center;
@@ -71,6 +72,7 @@
   background: transparent;
   color: black;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .btn--medium {
@@ -86,6 +88,7 @@
 
 .btn--primary:hover {
   background: #319737;
+  color: white;
 }
 
 .btn--outline {
