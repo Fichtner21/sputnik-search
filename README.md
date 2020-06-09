@@ -87,12 +87,8 @@ Elasticsearch jest obecnie dostępny na naszym githubie.
 
 - Dodanie dekryptacji do crypto.php (mcrypt_decrypt -> openssl_decrypt).
 - Zrobić możliwość dodania od razu z ikonką lupy która działa na klik i wysuwa wyszukiwarkę. Opcja do wyboru.
-- Shortcode z parametrami. Wyświetlanie parametrów po atrybutach. Shortcode bez parametrów wyświetli samo pole do wpisania frazy.
 - Naprawić/zrobić synchronizację plików.
 - Dodać SCSS.
-- Uporządkować strukturę ASSETS.
-- Wybór kategorii, które ma wyświetlać wyszukiwarka (task).
-- Ustawić tak, aby informacje/errory z innych wtyczek nie pokazywały się na stronie sputnik search.
 
 ### Usage
 

@@ -115,6 +115,15 @@ $searchVersion = get_option( 'search_version' );
                 <button class="btn btn--medium btn--danger sputnik-action-buttons__button" title="Usuń indeks" id="js-deleteindex"><?= __('Usuń indeks <small>Usunięcie indeksu spowoduje błąd w wyszukiwarce</small>','sputnik-search'); ?></button>
             </div>
 
+            <?php
+                $shortcode_string = "&lt;!-- Sputnik Search plugin search form --&gt;<br>";
+                $shortcode_string .= "&lt;?= shortcode_exists( 'sputnik_search_form' ) ? do_shortcode( '[sputnik_search_form]' ) : false; ?&gt;";
+            ?>
+            <div class="sputnik-shortcode">
+                <h3 class="sputnik-shortcode__title"><?= __('Poniższy kod odpowiada za wyświetlenie wyszukiwarki wtyczki w motywie. Wklej go np. w header.php w folderze motywu.','sputnik-search'); ?></h3>
+                <pre class="sputnik-shortcode__code"><?= $shortcode_string; ?></pre>
+            </div>
+
             <ul id="es-logs"></ul>
 
             <?php endif; ?>
