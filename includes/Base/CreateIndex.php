@@ -27,12 +27,12 @@ class CreateIndex extends BaseController {
 
         if($login->token) {
             $headers = array("Authorization: $login->token");
-    
+
             $this->existsResponse = $this->method("GET", "indices/$id", null, $headers);
-            
+
             if($this->existsResponse['info']['http_code'] == 404) {
                 $response = $this->method("PUT", "indices/$id", null, $headers);
-                
+
                 $output = '<div style="color: orange; margin: 20px; font-size: 20px;"><span class="dashicons dashicons-clock"></span> Wysłano request o dodanie indeksu.</div>';
 
                 echo $output;
@@ -47,47 +47,47 @@ class CreateIndex extends BaseController {
             }
         }
     }
-    
+
     public function check_if_index_exists() {
         $login = new Login;
         $login->register();
-    
+
         $headers = array("Authorization: $login->token");
-    
+
         $this->existsResponse = $this->method("GET", "indices/$this->blog_id", null, $headers);
-    
+
         echo $this->existsResponse['info']['http_code'];
-    
+
         wp_die();
     }
-    
+
     public function my_action_javascript() { ?>
         <script type="text/javascript">
             jQuery(document).ready(function($) {
                 var data = {
                     'action': 'check_if_index_exists'
                 };
-    
+
                 var currentStatus = "<?php echo $this->existsResponse['info']['http_code']; ?>";
-    
+
                 if(currentStatus !== "200") {
                     var executed = false;
                     var interval = setInterval(function() {
                         jQuery.post(ajaxurl, data, function(response) {
                             if(response === "200" && currentStatus != response) {
                                 if(executed) return;
-                                
+
                                 clearInterval(interval);
-    
+
                                 executed = true;
-    
+
                                 jQuery("#wp-admin-bar-website-status").removeClass('error');
                                 jQuery("#wp-admin-bar-website-status").removeClass('progress');
                                 jQuery("#wp-admin-bar-website-status").addClass('success');
                                 jQuery("#wp-admin-bar-website-status").find('.ab-item').text("<?php echo $this->createdIndexText; ?>");
-    
+
                                 var reload = confirm("<?php echo $this->createdIndexAskText; ?>");
-    
+
                                 if(reload) {
                                     location.reload();
                                 }
@@ -113,7 +113,7 @@ class CreateIndex extends BaseController {
             });
         </script> <?php
     }
-    
+
    public function custom_toolbar_link_not_found($wp_admin_bar) {
         $args = array(
             'id' => 'website-status',
@@ -124,10 +124,10 @@ class CreateIndex extends BaseController {
                 'title' => $this->createIndexText
             )
         );
-    
+
         $wp_admin_bar->add_node($args);
     }
-    
+
     public function custom_toolbar_link_unauthorized($wp_admin_bar) {
         $args = array(
             'id' => 'website-status',
@@ -138,25 +138,25 @@ class CreateIndex extends BaseController {
                 'title' => $this->permissionDeniedText
             )
         );
-    
+
         $wp_admin_bar->add_node($args);
     }
-    
+
     public function custom_toolbar_link_ok($wp_admin_bar) {
         $args = array(
             'id' => 'website-status',
             'title' => 'Ok',
-            'href' => get_home_path() . '/wp-admin/admin.php?page=sputnik-search',
+            'href' => get_home_url() . '/wp-admin/admin.php?page=sputnik-search',
             'meta' => array(
                 'class' => 'website-status success',
                 'title' => 'ok'
             )
         );
-    
+
         $wp_admin_bar->add_node($args);
     }
-    
-    public function custom_toolbar_link_connection_error($wp_admin_bar) { 
+
+    public function custom_toolbar_link_connection_error($wp_admin_bar) {
         $args = array(
             'id' => 'website-status',
             'title' => $this->connectionErrorText,
@@ -166,21 +166,21 @@ class CreateIndex extends BaseController {
                 'title' => $this->connectionErrorText
             )
         );
-    
+
         $wp_admin_bar->add_node($args);
     }
-    
+
     public function admin_tool_bar(){
         if(!is_network_admin() && is_admin()) {
             $login = new Login;
             $login->register();
 
             $headers = array("Authorization: $login->token");
-    
+
             $this->existsResponse = $this->method("GET", "indices/$this->blog_id", null, $headers);
-    
+
             add_action('admin_footer', array($this, 'my_action_javascript' ) );
-    
+
             if($this->existsResponse['info']['http_code'] == 404) {
                 add_action('admin_bar_menu', array( $this, 'custom_toolbar_link_not_found' ), 999);
             } else if($this->existsResponse['info']['http_code'] == 401) {

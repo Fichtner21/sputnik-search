@@ -1,6 +1,6 @@
-<?php session_start();
+<?php
 
-if (!empty($_POST)) {
+if (isset($_POST) && !empty($_POST)) {
     if(isset($_POST['es-username']) || isset($_POST['es-password'])){
         update_option( 'es_username', $_POST['es-username']);
         update_option( 'es_password', $_POST['es-password']);
@@ -21,26 +21,36 @@ if (!empty($_POST)) {
     if(isset($_POST['custom-css'])) {
         update_option( 'custom_css', $_POST['custom-css'] );
     }
-}
 
-if(isset($_SESSION['cat-terms']) && !empty($_SESSION['cat-terms'])) {
-    $cat_terms = array_unique($_SESSION['cat-terms']);
-
+    // Add terms to choosen options
     $choosen_terms = array();
 
-    foreach($cat_terms as $term) {
-        // print_r( $term . ' - ' . $_POST[$term] . '<br>' );
-        if(isset($_POST[$term])) {
-            array_push($choosen_terms, $term);
+    $get_all_taxonomies = get_taxonomies(array(
+        'public' => true
+    ));
 
-            $choosen_terms_string = implode(',', $choosen_terms);
+    foreach($get_all_taxonomies as $taxonomy) {
+        $terms = get_terms([
+            'taxonomy' => $taxonomy,
+            'hide_empty' => false,
+        ]);
 
-            update_option( 'choosen_term_' . $term, $term );
+        foreach($terms as $term) {
+            $term_name_slug = trim( strtolower( str_replace( ' ', '-', $term->name ) ) );
+            $term_ID = $term->term_id;
 
-            update_option( 'choosen_terms', $choosen_terms_string );
+            if(isset($_POST[$term_ID])) {
+                array_push($choosen_terms, $term_ID);
 
-            unset($_SESSION['cat-terms']);
+                update_option( 'choosen_term_' . $term_ID, $term_ID );
+            }
         }
+    }
+
+    if(isset($choosen_terms) && !empty($choosen_terms)) {
+        $choosen_terms_string = implode(',', $choosen_terms);
+
+        update_option( 'choosen_terms', $choosen_terms_string );
     }
 }
 
@@ -61,7 +71,7 @@ if(!empty($_POST) && get_option('custom_css')) {
 
 ?>
 
-<div class="wrap sputnik-search-page">
+<div class="sputnik-search-page">
     <div class="sputnik-search-page__inner">
         <div class="sputnik-search-page__branding">
             <img src="<?= plugin_dir_url( dirname( __FILE__ ) ); ?>/assets/admin/logo-sputnik.svg" alt="">
@@ -115,7 +125,7 @@ if(!empty($_POST) && get_option('custom_css')) {
                             'public' => true
                         ));
 
-                        $_SESSION['cat-terms'] = array();
+                        $cat_terms = array();
 
                         echo '<button type="button" id="js-sputnik-search-categories-list-toggle">'. __('Rozwiń listę kategorii', 'sputnik-search') .'</button>';
                         echo '<ul class="content-categories" id="js-sputnik-search-categories-list">';
@@ -130,11 +140,11 @@ if(!empty($_POST) && get_option('custom_css')) {
                                 $term_name_slug = trim( strtolower( str_replace( ' ', '-', $term->name ) ) );
                                 $term_ID = $term->term_id;
 
-                                $_SESSION['cat-terms'][$term_name_slug] = $term_ID;
+                                $cat_terms[$term_name_slug] = $term_ID;
                             }
                         }
 
-                        if($cat_terms&& !empty($cat_terms)) {
+                        if(isset($cat_terms) && !empty($cat_terms)) {
                             $i = 0;
                             foreach($cat_terms as $term_name => $term_id) {
                                 $term_name = get_term( $term_id )->name;
@@ -148,6 +158,8 @@ if(!empty($_POST) && get_option('custom_css')) {
 
                                 echo $term_output;
                             }
+                        } else {
+                            echo __('Aktualnie nie ma żadnych kategorii','sputnik-search');
                         }
 
                         echo '</ul>';

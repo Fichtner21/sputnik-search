@@ -6,13 +6,15 @@ namespace Inc\Base;
 
 use \Inc\Base\BaseController;
 
-class SettingsLinks extends BaseController { 
+class SettingsLinks extends BaseController {
     public function register() {
         add_filter( "plugin_action_links_" . $this->plugin_name, array( $this, 'settings_link' ));
     }
 
     public function settings_link( $links ) {
-        $settings_link = '<a href="admin.php?page=sputnik-search" title="Ustawienia">Ustawienia</a>';
+        if(is_admin()) {
+            $settings_link = '<a href="'. get_home_url() .'/wp-admin/admin.php?page=sputnik-search" title="Ustawienia">Ustawienia</a>';
+        }
 
         array_push( $links, $settings_link );
 
