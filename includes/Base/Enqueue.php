@@ -10,6 +10,7 @@ class Enqueue extends BaseController {
     public function register() {
         add_action ( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
         add_action ( 'wp_enqueue_scripts', array( $this, 'enqueue_public_assets' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'load_jquery' ) );
     }
 
     function enqueue_admin_assets() {
@@ -32,5 +33,12 @@ class Enqueue extends BaseController {
             wp_enqueue_script( 'sputnik_search_react_scripts', $this->plugin_url . 'react/sputnik-wordpress-search.build.js' );
         }
         wp_enqueue_script( 'sputnik_search_public_scripts', $this->plugin_url . 'assets/public/main.js' );
+    }
+
+    function load_jquery() {
+        if ( ! wp_script_is( 'jquery', 'enqueued' ) ) {
+            //Enqueue
+            wp_enqueue_script( 'jquery' );
+        }
     }
 }

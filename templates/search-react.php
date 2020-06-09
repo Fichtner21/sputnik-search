@@ -5,16 +5,16 @@
 				<h2 class="ss-articles__title" id="search-title"><?php printf(__( 'Wyniki wyszukiwania dla: %s', 'sputnik-search' ), get_search_query()); ?></h2>
 
 				<?php
-                    $q = $_GET['sq'];
+                    $q = isset($_GET['sq']) ? $_GET['sq'] : false;
 					$blog_id = get_current_blog_id();
-					$search_mode = $_GET['search-mode'];
-					$case_sensitive = $_GET['case_sensitive'];
-					$category = $_GET['category'];
-					$from = $_GET['from'];
-					$size = $_GET['size'];
-					$date_from = $_GET['date_from'];
-                    $date_to = $_GET['date_to'];
-                    $sort = $_GET['sort'];
+					$search_mode = isset($_GET['search-mode']) ? $_GET['search-mode'] : false;
+					$case_sensitive = isset($_GET['case_sensitive']) ? $_GET['case_sensitive'] : false;
+					$category = isset($_GET['category']) ? $_GET['category'] : false;
+					$from = isset($_GET['from']) ? $_GET['from'] : false;
+					$size = isset($_GET['size']) ? $_GET['size'] : false;
+					$date_from = isset($_GET['date_from']) ? $_GET['date_from'] : false;
+                    $date_to = isset($_GET['date_to']) ? $_GET['date_to'] : false;
+                    $sort = isset($_GET['sort']) ? $_GET['sort'] : false;
 				?>
 
 				<div id="search-results" class="ss-articles-list"></div>

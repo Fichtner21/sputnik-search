@@ -58,7 +58,7 @@
 
                 <div class="sputnik-search-form__row sputnik-search-form__row--cs">
                     <label for="case_sensitive"><?= __('Uwzględnij wielkość liter','sputnik-search'); ?></label>
-                    <input type="checkbox" id="case_sensitive" name="case_sensitivity" title="<?= __('Uwzględnij wielkość liter', 'sputnik-search'); ?>" value="case" <?= $_GET['case_sensitivity'] == "case" ? ' checked' : ''; ?>>
+                    <input type="checkbox" id="case_sensitive" name="case_sensitivity" title="<?= __('Uwzględnij wielkość liter', 'sputnik-search'); ?>" value="case" <?= isset($_GET['case_sensitivity']) && $_GET['case_sensitivity'] == "case" ? ' checked' : ''; ?>>
                 </div>
             </div>
 
