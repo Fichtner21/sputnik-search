@@ -30,10 +30,10 @@
                     <label for="search-mode"><?= __('Tryb wyszukiwania','sputnik-search'); ?></label>
                     <select id="search-mode" name="search-mode" title="<?= __('Tryb wyszukiwania','sputnik-search'); ?>">
                         <option value="" selected disabled><?= __('Tryb wyszukiwania','sputnik-search'); ?></option>
-                        <option value="or"<?= "or" == $_GET['search-mode'] ? ' selected="selected"' : ''; ?>>
+                        <option value="or"<?= isset($_GET['search-mode']) && "or" == $_GET['search-mode'] ? ' selected="selected"' : ''; ?>>
                         <?= __('Szukanie dowolnego słowa', 'sputnik-search'); ?></option>
-                        <option value="and"<?= "and" == $_GET['search-mode'] ? ' selected="selected"' : ''; ?>><?= __('Szukanie wszystkich słów', 'sputnik-search'); ?></option>
-                        <option value="phrase"<?= "phrase" == $_GET['search-mode'] ? ' selected="selected"' : ''; ?>><?= __('Szukanie dokładnej frazy', 'sputnik-search'); ?></option>
+                        <option value="and"<?= isset($_GET['search-mode']) && "and" == $_GET['search-mode'] ? ' selected="selected"' : ''; ?>><?= __('Szukanie wszystkich słów', 'sputnik-search'); ?></option>
+                        <option value="phrase"<?= isset($_GET['search-mode']) && "phrase" == $_GET['search-mode'] ? ' selected="selected"' : ''; ?>><?= __('Szukanie dokładnej frazy', 'sputnik-search'); ?></option>
                     </select>
                 </div>
 
@@ -51,7 +51,7 @@
                             $term = get_term($category_term);
                             $term_name = $term->name;
                         ?>
-                            <option value="<?= $category_term; ?>"<?= $category_term == $_GET['category'] ? ' selected="selected"' : ''; ?>><?= $term_name; ?></option>
+                            <option value="<?= $category_term; ?>"<?= isset($_GET['category']) && $category_term == $_GET['category'] ? ' selected="selected"' : ''; ?>><?= $term_name; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
