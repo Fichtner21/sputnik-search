@@ -26,6 +26,8 @@ if (isset($_POST) && !empty($_POST)) {
                 array_push($choosen_terms, $term_ID);
 
                 update_option( 'choosen_term_' . $term_ID, $term_ID );
+            } else {
+                delete_option( 'choosen_term_' . $term_ID );
             }
         }
     }
