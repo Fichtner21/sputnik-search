@@ -85,7 +85,6 @@ Elasticsearch jest obecnie dostępny na naszym githubie.
 
 ### Todos
 
-- Dodanie dekryptacji do crypto.php (mcrypt_decrypt -> openssl_decrypt).
 - Zrobić możliwość dodania od razu z ikonką lupy która działa na klik i wysuwa wyszukiwarkę. Opcja do wyboru.
 - Naprawić/zrobić synchronizację plików.
 - Dodać SCSS.
