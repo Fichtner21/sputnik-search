@@ -23,6 +23,9 @@ if(isset($_POST) && !empty($_POST)) {
     if(isset($_POST['search-version'])) {
         update_option( 'search_version', $_POST['search-version'] );
     }
+    if(isset($_POST['visibility-version'])) {
+        update_option( 'visibility_version', $_POST['visibility-version'] );
+    }
 }
 
 $es_username = get_option('es_username');
@@ -31,6 +34,7 @@ $es_password = get_option('es_password');
 $displayVersion = get_option('display_version');
 $stylesOption = get_option( 'styles_option' );
 $searchVersion = get_option( 'search_version' );
+$visibilityVersion = get_option( 'visibility_version' );
 
 ?>
 
@@ -102,6 +106,15 @@ $searchVersion = get_option( 'search_version' );
                         <input type="radio" id="simple-search" name="search-version" class="sputnik-search-form__radio" value="simple-search" <?= $searchVersion == 'simple-search' ? 'checked' : false; ?>>
                         <label for="expanded-search" class="sputnik-search-form__label"><?= __('Wersja z parametrami','sputnik-search'); ?>:</label>
                         <input type="radio" id="expanded-search" name="search-version" class="sputnik-search-form__radio" value="expanded-search" <?= $searchVersion == 'expanded-search' ? 'checked' : false; ?> <?= $searchVersion ? false : 'checked'; ?>>
+                    </div>
+                </div>
+                <div class="sputnik-search-form__row">
+                    <h3 class="sputnik-search-form__choose-title"><?= __('Wybierz opcje widoczności','sputnik-search'); ?>:</h3>
+                    <div class="sputnik-search-form__radio-buttons">
+                        <label for="default-visibility" class="sputnik-search-form__label"><?= __('Wyszukiwarka widoczna od razu','sputnik-search'); ?>:</label>
+                        <input type="radio" id="default-visibility" name="visibility-version" class="sputnik-search-form__radio" value="default-visibility" <?= $visibilityVersion == 'default-visibility' ? 'checked' : false; ?><?= $visibilityVersion ? false : 'checked'; ?>>
+                        <label for="toggle-visibility" class="sputnik-search-form__label"><?= __('Wyszukiwarka widoczna po kliknięciu w lupę','sputnik-search'); ?>:</label>
+                        <input type="radio" id="toggle-visibility" name="visibility-version" class="sputnik-search-form__radio" value="toggle-visibility" <?= $visibilityVersion == 'toggle-visibility' ? 'checked' : false; ?>>
                     </div>
                 </div>
                 <div class="sputnik-search-form__row">

@@ -1,10 +1,13 @@
 .sputnik-search-form {
-  background-color: red;
-  color: white;
+	width: 100%;
+    margin: 0;
+    border: 1px solid rgba(0,0,0,0.15);
 }
 
-.sputnik-search-form input,
-.sputnik-search-form select {
-  color: black;
-  background: white;
+.sputnik-search-form__toggle {
+	background-color: #0f7ad9;
+}
+
+.sputnik-search-form__submit {
+	background-color: #0f7ad9;
 }
