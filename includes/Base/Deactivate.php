@@ -9,8 +9,16 @@ class Deactivate {
         // Flush rewrite rules
         add_action( 'init', 'flush_rewrite_rules' );
         // Remove log files
-        unlink(plugin_dir_path( dirname( __FILE__, 2 ) ) . 'sql_dump.log');
-        unlink(plugin_dir_path( dirname( __FILE__, 2 ) ) . 'synchronize-dump.log');
-        unlink(plugin_dir_path( dirname( __FILE__, 2 ) ) . 'app_dev.log');
+        if( file_exists(plugin_dir_path( dirname( __FILE__, 2 ) ) . 'sql_dump.log') ) {
+            unlink(plugin_dir_path( dirname( __FILE__, 2 ) ) . 'sql_dump.log');
+        }
+
+        if( file_exists(plugin_dir_path( dirname( __FILE__, 2 ) ) . 'sql_dump.log') ) {
+            unlink(plugin_dir_path( dirname( __FILE__, 2 ) ) . 'synchronize-dump.log');
+        }
+
+        if( file_exists(plugin_dir_path( dirname( __FILE__, 2 ) ) . 'sql_dump.log') ) {
+            unlink(plugin_dir_path( dirname( __FILE__, 2 ) ) . 'app_dev.log');
+        }
     }
 }
