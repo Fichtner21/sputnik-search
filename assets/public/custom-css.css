@@ -11,3 +11,8 @@
 .sputnik-search-form__submit {
 	background-color: #0f7ad9;
 }
+
+.ss-container {
+	max-width: 1100px;
+	margin: 0 auto;
+}

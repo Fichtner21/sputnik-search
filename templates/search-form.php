@@ -52,17 +52,24 @@
                     ','sputnik-search'); ?></label>
                     <select id="category-select" name="category" title="<?= __('Wybierz kategorie','sputnik-search'); ?>">
                         <option value=""><?= __('Wybierz kategorie','sputnik-search'); ?></option>
+
                         <?php
-                            $categories = get_option(' choosen_terms ');
+                        $categories = get_option(' choosen_terms ');
+
+                        if(isset($categories) && $categories != false) {
                             $categories_terms = explode(',', $categories);
+                        }
+
+                        if(isset($categories_terms)) :
 
                             foreach($categories_terms as $category_term) :
+                                $term = get_term($category_term);
+                                $term_name = $term->name;
+                            ?>
+                                <option value="<?= $category_term; ?>"<?= isset($_GET['category']) && $category_term == $_GET['category'] ? ' selected="selected"' : ''; ?>><?= $term_name; ?></option>
+                            <?php endforeach; ?>
 
-                            $term = get_term($category_term);
-                            $term_name = $term->name;
-                        ?>
-                            <option value="<?= $category_term; ?>"<?= isset($_GET['category']) && $category_term == $_GET['category'] ? ' selected="selected"' : ''; ?>><?= $term_name; ?></option>
-                        <?php endforeach; ?>
+                        <?php endif; ?>
                     </select>
                 </div>
 

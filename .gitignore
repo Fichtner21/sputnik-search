@@ -4,6 +4,7 @@ app_dev.log
 synchronize-dump.log
 elasticsearch_aws
 add_file_response_
+assets/public/custom-css.css
 # Created by .ignore support plugin (hsz.mobi)
 ### Node template
 # Logs
