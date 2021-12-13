@@ -8,10 +8,27 @@
   text-align: left;
 }
 
-/* If toggle version enabled */
-.sputnik-search-form--hidden {
-  display: none;
+.sputnik-search-form.hidden {
+  @extend .sr-only;
 }
+// Restart sr-only on active searchform
+.sputnik-search-form.active {
+  border: 0;
+  clip: unset;
+  clip-path: unset;
+  height: unset;
+  margin: unset;
+  overflow: unset;
+  padding: unset;
+  position: absolute;
+  width: unset;
+  word-wrap: unset;
+}
+
+/* If toggle version enabled */
+/* .sputnik-search-form--hidden {
+  display: none;
+} */
 
 .sputnik-search-form--active {
   display: block;
@@ -140,10 +157,10 @@
   color: black;
 }
 
-.sputnik-search-form__row--hidden {
+/* .sputnik-search-form__row--hidden {
   display: none !important;
   visibility: hidden !important;
-}
+} */
 
 .sputnik-search-form__parametrs {
   /* display: grid; */

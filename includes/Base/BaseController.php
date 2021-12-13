@@ -8,6 +8,7 @@ class BaseController {
     public $plugin_path;
     public $plugin_url;
     public $plugin_name;
+    public $plugin_version;
 
     public $ESUserName;
     public $ESPassword;
@@ -21,6 +22,9 @@ class BaseController {
         $this->plugin_path = plugin_dir_path( dirname( __FILE__, 2 ) );
         $this->plugin_url = plugin_dir_url( dirname( __FILE__, 2 ) );
         $this->plugin_name = plugin_basename( dirname( __FILE__, 3 ) . '/sputnik-search.php' );
+        $this->plugin_version = get_file_data( $this->plugin_path . 'sputnik-search.php', array(
+            'Version' => 'Version'
+        ) )['Version'];
 
         $this->ESUserName = get_option('es_username');
         $this->ESPassword = get_option('es_password');

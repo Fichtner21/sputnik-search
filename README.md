@@ -97,3 +97,9 @@ Elasticsearch jest obecnie dostępny na naszym githubie.
 <!-- Sputnik Search plugin search form -->
 <?= shortcode_exists( 'sputnik_search_form' ) ? do_shortcode( '[sputnik_search_form]' ) : false; ?>
 ```
+
+- Aby skompilować style trzeba użyć komendy w root pluginu
+
+```
+sass ./assets/public/scss/style.scss ./assets/public/style.css --watch --style compressed
+```

@@ -10,7 +10,7 @@
     </button>
 <?php endif; ?>
 
-<form role="search" method="GET" id="sputnik-search-form" class="sputnik-search-form <?php if( get_option('visibility_version') === 'toggle-visibility' ) : ?>sputnik-search-form--hidden<?php endif; ?>" action="<?= esc_url(home_url('/')); ?>">
+<form role="search" method="GET" id="sputnik-search-form" class="sputnik-search-form <?php if( get_option('visibility_version') === 'toggle-visibility' ) : ?>hidden<?php endif; ?>" action="<?= esc_url(home_url('/')); ?>">
     <div class="sputnik-search-form__container">
         <label class="sputnik-search-form__title" for="s"><?= __('Przeszukaj portal', 'sputnik-search') . ' ' . get_bloginfo(); ?></label>
 
@@ -19,12 +19,9 @@
                 <input type="text" id="s" class="sputnik-search-form__searchfield" tabindex="<?= is_search() ? '0': '-1'; ?>" placeholder="<?=__('Szukaj...', 'sputnik-search'); ?>" value="<?= isset($_GET['sq']) ? $_GET['sq'] : false; ?>" name="sq" required />
             </div>
 
-            <div class="sputnik-search-form__parametrs" <?php if(get_option('search_version') === 'expanded-search' || get_option('search_version') === false ) : ?> style='display: grid;' <?php endif; ?>>
-                <div class="sputnik-search-form__row sputnik-search-form__row--hidden">
-                    <label for="s" class="hidden"></label>
-                    <input type="hidden" id="s" name="s" value="" />
-                </div>
+            <input type="hidden" id="s" name="s" value="" />
 
+            <div class="sputnik-search-form__parametrs" <?php if(get_option('search_version') === 'expanded-search' || get_option('search_version') === false ) : ?> style='display: grid;' <?php endif; ?>>
                 <div class="sputnik-search-form__row sputnik-search-form__row--dates">
                     <div class="sputnik-search-form__date-from">
                         <label for="datepicker-from"><?= __('Data od:', 'sputnik-search'); ?></label>
@@ -48,8 +45,8 @@
                 </div>
 
                 <div class="sputnik-search-form__row sputnik-search-form__row--category">
-                    <label for="category-select"><?= __('Wybierz kategorie
-                    ','sputnik-search'); ?></label>
+                    <label for="category-select"><?= __('Wybierz kategorie','sputnik-search'); ?></label>
+										
                     <select id="category-select" name="category" title="<?= __('Wybierz kategorie','sputnik-search'); ?>">
                         <option value=""><?= __('Wybierz kategorie','sputnik-search'); ?></option>
 

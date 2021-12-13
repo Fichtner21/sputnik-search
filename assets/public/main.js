@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     searchToggleButton.addEventListener("click", function (e) {
       e.preventDefault();
 
-      searchForm.classList.toggle(`sputnik-search-form--${activeClass}`);
+      searchForm.classList.toggle(activeClass);
     });
   }
 });

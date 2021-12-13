@@ -14,25 +14,23 @@ class Enqueue extends BaseController {
     }
 
     function enqueue_admin_assets() {
-        wp_enqueue_style( 'codermirror_css', $this->plugin_url . 'assets/admin/codemirror.css' );
-        wp_enqueue_style( 'sputnik_search_admin_styles', $this->plugin_url . 'assets/admin/admin-style.css' );
+        wp_enqueue_style( 'codermirror_css', $this->plugin_url . 'assets/admin/codemirror.css', array(), $this->plugin_version );
+        wp_enqueue_style( 'sputnik_search_admin_styles', $this->plugin_url . 'assets/admin/admin-style.css', array(), $this->plugin_version );
 
-        wp_enqueue_script( 'sputnik_search_admin_scripts', $this->plugin_url . 'assets/admin/main.js' );
-        wp_enqueue_script( 'codermirror_js', $this->plugin_url . 'assets/admin/codemirror.js' );
+        wp_enqueue_script( 'sputnik_search_admin_scripts', $this->plugin_url . 'assets/admin/main.js', array(), $this->plugin_version );
+        wp_enqueue_script( 'codermirror_js', $this->plugin_url . 'assets/admin/codemirror.js', array(), $this->plugin_version );
     }
 
     function enqueue_public_assets() {
-        if(get_option('styles_option') == 'plugin-styles' || get_option('styles_option') == false) {
-            wp_enqueue_style( 'sputnik_search_form_styles', $this->plugin_url . 'assets/public/searchform-styles.css' );
-            wp_enqueue_style( 'sputnik_search_styles_option', $this->plugin_url . 'assets/public/results-styles.css' );
-        }
+        wp_enqueue_style( 'sputnik_search_form_styles', $this->plugin_url . 'assets/public/style.css', array(), $this->plugin_version );
+
         if(get_option('custom_css')) {
-            wp_enqueue_style( 'sputnik_search_custom_css', $this->plugin_url . 'assets/public/custom-css.css' );
+            wp_enqueue_style( 'sputnik_search_custom_css', $this->plugin_url . 'assets/public/custom-css.css', array(), $this->plugin_version );
         }
         if(get_option('display_version') == 'react' || get_option('display_version') == false) {
-            wp_enqueue_script( 'sputnik_search_react_scripts', $this->plugin_url . 'react/sputnik-wordpress-search.build.js' );
+            wp_enqueue_script( 'sputnik_search_react_scripts', $this->plugin_url . 'react/sputnik-wordpress-search.build.js', array(), $this->plugin_version );
         }
-        wp_enqueue_script( 'sputnik_search_public_scripts', $this->plugin_url . 'assets/public/main.js' );
+        wp_enqueue_script( 'sputnik_search_public_scripts', $this->plugin_url . 'assets/public/main.js', array(), $this->plugin_version );
     }
 
     function load_jquery() {
